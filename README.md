@@ -57,18 +57,24 @@ pnpm format:check  # Verifies formatting without writing
 
 ```
 apps/web/               Next.js application — route handlers and pages
-  app/                  App Router: layouts, pages and the API layer
+  app/                  App Router: layouts, pages and the API layer.
 packages/core/          Pure TypeScript domain — no React, no Next, no fetch,
-                        which is why it tests fast and without a network
+                        which is why it tests fast and without a network.
   src/schemas.ts        Zod schemas for the three upstream feeds, plus the types
                         inferred from them — the only description of what the
-                        vendor is allowed to send us
+                        vendor is allowed to send us.
   src/types.ts          The domain shapes this app serves to its own frontend
   src/normalize.ts      Resolves the defects in the raw KPI feed (R1, R2)
+  src/quarters.ts       Quarter arithmetic and the canonical grid every series
+                        is laid out on.
+  src/metrics.ts        The two ratios the whole app is built from — margin and
+                        growth — each with the guard that keeps it honest (R7).
+  src/series.ts         Expands one company onto the grid and summarises it
+                        (R3, R6, R9).
   test/fixtures/        Upstream feeds, frozen byte-for-byte, so the suite never
-                        reaches the network — each one lands when a test needs it
+                        reaches the network — each one lands when a test needs it.
   test/fixtures.ts      Parses those files through the upstream schemas, which
-                        makes schema drift fail every test that loads them
+                        makes schema drift fail every test that loads them.
 ```
 
 ## Data assumptions
@@ -80,6 +86,18 @@ Two keys appear twice with conflicting figures: `co-014` / `2023-Q2` and `co-023
 
 **R2 — KPI rows for unknown companies are dropped, and counted.**
 `co-999` and `co-998` report KPIs but do not exist in the company feed, so they belong to no fund. Keeping them would leak revenue into portfolio-wide totals that no fund could account for. They are dropped rather than guessed at — but the count is carried through to the API response, because silently discarding data is how a pipeline hides its own bugs. Orphans are removed before deduplication, so the two counters describe disjoint sets of rows.
+
+**R3 — every company is laid out on the same quarter grid, and a gap stays `null`.**
+The grid runs from the earliest to the latest quarter anyone reported, which the data puts at `2023-Q1` through `2025-Q4`. It is derived rather than hardcoded, so a feed that grows a quarter does not need a code change. Three companies are missing quarters in the middle of their history rather than at the edges — `co-004`, `co-008` and `co-016` — and `co-008` skips all of 2024. Those quarters are filled with `null`, never `0` and never interpolated: a fabricated financial figure is worse than a missing one, because it cannot be told apart from a real one downstream. `missingQuarters` records which quarters carried no row at all, which is what the UI marks; that is a different thing from a row that was reported with a `null` metric in it, and the two are not merged.
+
+**R6 — valuation is the last reported figure, carried forward, labelled with the quarter it came from.**
+Only 96 of 269 rows carry a valuation, scattered irregularly. This is not a defect: a valuation is produced by a pricing event, not by the calendar. Carrying the last known figure forward is what a manager does mentally anyway, so the number is useful — but it is always shown with an "as of" quarter, because a valuation from four quarters ago and one from last quarter are not the same claim. The per-quarter series keeps valuations exactly where they were reported and does not carry them, so the drill-down chart shows the events rather than a staircase.
+
+**R7 — negative EBITDA is valid data; a margin needs a positive revenue underneath it.**
+113 of the 244 non-null EBITDA figures are negative, down to −55.0M. That is an ordinary growth portfolio, not corrupt data, so nothing is filtered on sign and six companies legitimately end on a negative margin. The margin itself is only computed when revenue is present and above zero — otherwise the result is `null` rather than a division by zero or a ratio against a figure nobody reported.
+
+**R9 — a company with no KPIs at all is still a company.**
+`co-021` (Surge Technologies, fund-005) reports nothing. It gets a full-length series of nulls and a summary whose `latestQuarter` is `null`, so the fund page renders it as "not reporting" rather than as a company worth zero. Growth for any company is `null` when either endpoint is missing, which is why `co-008` has no year-on-year figure: its latest quarter is `2025-Q4` and the matching base sits inside its 2024 gap. Falling back to an older pair would have produced a plausible-looking number that no longer means "year on year as of the latest quarter".
 
 ## Testing
 
