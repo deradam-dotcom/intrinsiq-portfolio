@@ -1,0 +1,194 @@
+[
+  {
+    "id": "co-001",
+    "fundId": "fund-001",
+    "name": "Stellar Dynamics",
+    "sector": "deeptech",
+    "country": "DE",
+    "initialInvestmentYear": 2022
+  },
+  {
+    "id": "co-002",
+    "fundId": "fund-001",
+    "name": "Fieldnote Health",
+    "sector": "fintech",
+    "country": "HU",
+    "initialInvestmentYear": 2020
+  },
+  {
+    "id": "co-003",
+    "fundId": "fund-002",
+    "name": "Kanso Robotics",
+    "sector": "healthtech",
+    "country": "FR",
+    "initialInvestmentYear": 2022
+  },
+  {
+    "id": "co-004",
+    "fundId": "fund-002",
+    "name": "Baltic Freight Systems",
+    "sector": "fintech",
+    "country": "NL",
+    "initialInvestmentYear": 2023
+  },
+  {
+    "id": "co-005",
+    "fundId": "fund-002",
+    "name": "Nexus Analytics",
+    "sector": "cybersecurity",
+    "country": "FR",
+    "initialInvestmentYear": 2021
+  },
+  {
+    "id": "co-006",
+    "fundId": "fund-002",
+    "name": "Prism Intelligence",
+    "sector": "cybersecurity",
+    "country": "DE",
+    "initialInvestmentYear": 2020
+  },
+  {
+    "id": "co-007",
+    "fundId": "fund-002",
+    "name": "Quantum Ventures",
+    "sector": "climate",
+    "country": "GB",
+    "initialInvestmentYear": 2020
+  },
+  {
+    "id": "co-008",
+    "fundId": "fund-003",
+    "name": "Velocity Capital",
+    "sector": "saas",
+    "country": "NL",
+    "initialInvestmentYear": 2021
+  },
+  {
+    "id": "co-009",
+    "fundId": "fund-003",
+    "name": "Ascent Technologies",
+    "sector": "saas",
+    "country": "FR",
+    "initialInvestmentYear": 2022
+  },
+  {
+    "id": "co-010",
+    "fundId": "fund-003",
+    "name": "Zenith Systems",
+    "sector": "healthtech",
+    "country": "HU",
+    "initialInvestmentYear": 2021
+  },
+  {
+    "id": "co-011",
+    "fundId": "fund-003",
+    "name": "Pulse Metrics",
+    "sector": "fintech",
+    "country": "SE",
+    "initialInvestmentYear": 2022
+  },
+  {
+    "id": "co-012",
+    "fundId": "fund-003",
+    "name": "Apex Solutions",
+    "sector": "saas",
+    "country": "CH",
+    "initialInvestmentYear": 2020
+  },
+  {
+    "id": "co-013",
+    "fundId": "fund-004",
+    "name": "Digital Horizons",
+    "sector": "edtech",
+    "country": "US",
+    "initialInvestmentYear": 2022
+  },
+  {
+    "id": "co-014",
+    "fundId": "fund-004",
+    "name": "Smart Networks",
+    "sector": "healthtech",
+    "country": "DE",
+    "initialInvestmentYear": 2019
+  },
+  {
+    "id": "co-015",
+    "fundId": "fund-004",
+    "name": "Summit Labs",
+    "sector": "logistics",
+    "country": "US",
+    "initialInvestmentYear": 2021
+  },
+  {
+    "id": "co-016",
+    "fundId": "fund-004",
+    "name": "Echo Ventures",
+    "sector": "edtech",
+    "country": "DE",
+    "initialInvestmentYear": 2021
+  },
+  {
+    "id": "co-017",
+    "fundId": "fund-004",
+    "name": "Nova Systems",
+    "sector": "edtech",
+    "country": "HU",
+    "initialInvestmentYear": 2021
+  },
+  {
+    "id": "co-018",
+    "fundId": "fund-004",
+    "name": "Titan Analytics",
+    "sector": "healthtech",
+    "country": "GB",
+    "initialInvestmentYear": 2022
+  },
+  {
+    "id": "co-019",
+    "fundId": "fund-005",
+    "name": "Bolt Dynamics",
+    "sector": "fintech",
+    "country": "CH",
+    "initialInvestmentYear": 2023
+  },
+  {
+    "id": "co-020",
+    "fundId": "fund-005",
+    "name": "Phoenix Capital",
+    "sector": "edtech",
+    "country": "US",
+    "initialInvestmentYear": 2023
+  },
+  {
+    "id": "co-021",
+    "fundId": "fund-005",
+    "name": "Surge Technologies",
+    "sector": "logistics",
+    "country": "GB",
+    "initialInvestmentYear": 2022
+  },
+  {
+    "id": "co-022",
+    "fundId": "fund-005",
+    "name": "Orbit Solutions",
+    "sector": "saas",
+    "country": "HU",
+    "initialInvestmentYear": 2022
+  },
+  {
+    "id": "co-023",
+    "fundId": "fund-005",
+    "name": "Compass Dynamics",
+    "sector": "deeptech",
+    "country": "SE",
+    "initialInvestmentYear": 2024
+  },
+  {
+    "id": "co-024",
+    "fundId": "fund-005",
+    "name": "Vortex Analytics",
+    "sector": "edtech",
+    "country": "US",
+    "initialInvestmentYear": 2023
+  }
+]

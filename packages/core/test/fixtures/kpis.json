@@ -1,0 +1,2154 @@
+[
+  {
+    "companyId": "co-001",
+    "quarter": "2023-Q1",
+    "revenue": 25318848,
+    "ebitda": null,
+    "headcount": 616,
+    "valuation": null
+  },
+  {
+    "companyId": "co-001",
+    "quarter": "2023-Q2",
+    "revenue": 28802528,
+    "ebitda": 518664,
+    "headcount": 674,
+    "valuation": null
+  },
+  {
+    "companyId": "co-001",
+    "quarter": "2023-Q3",
+    "revenue": 32274822,
+    "ebitda": -2621041,
+    "headcount": null,
+    "valuation": null
+  },
+  {
+    "companyId": "co-001",
+    "quarter": "2023-Q4",
+    "revenue": 37095132,
+    "ebitda": -7009417,
+    "headcount": 784,
+    "valuation": null
+  },
+  {
+    "companyId": "co-001",
+    "quarter": "2024-Q1",
+    "revenue": 40413871,
+    "ebitda": -1655602,
+    "headcount": 836,
+    "valuation": 213838572
+  },
+  {
+    "companyId": "co-001",
+    "quarter": "2024-Q2",
+    "revenue": 44436112,
+    "ebitda": -6531462,
+    "headcount": 900,
+    "valuation": null
+  },
+  {
+    "companyId": "co-001",
+    "quarter": "2024-Q3",
+    "revenue": 48082387,
+    "ebitda": 7296071,
+    "headcount": 972,
+    "valuation": null
+  },
+  {
+    "companyId": "co-001",
+    "quarter": "2024-Q4",
+    "revenue": 51995307,
+    "ebitda": 675792,
+    "headcount": 1014,
+    "valuation": 488152512
+  },
+  {
+    "companyId": "co-001",
+    "quarter": "2025-Q1",
+    "revenue": 58815529,
+    "ebitda": 2451954,
+    "headcount": 1081,
+    "valuation": 361757823
+  },
+  {
+    "companyId": "co-001",
+    "quarter": "2025-Q2",
+    "revenue": 62618517,
+    "ebitda": -2926267,
+    "headcount": 1164,
+    "valuation": 403513438
+  },
+  {
+    "companyId": "co-001",
+    "quarter": "2025-Q3",
+    "revenue": 71131393,
+    "ebitda": null,
+    "headcount": null,
+    "valuation": null
+  },
+  {
+    "companyId": "co-001",
+    "quarter": "2025-Q4",
+    "revenue": 78291070,
+    "ebitda": 18037111,
+    "headcount": 1372,
+    "valuation": 702329318
+  },
+  {
+    "companyId": "co-002",
+    "quarter": "2023-Q1",
+    "revenue": 8952164,
+    "ebitda": -653399,
+    "headcount": 287,
+    "valuation": null
+  },
+  {
+    "companyId": "co-002",
+    "quarter": "2023-Q2",
+    "revenue": 9694595,
+    "ebitda": -2782537,
+    "headcount": 313,
+    "valuation": null
+  },
+  {
+    "companyId": "co-002",
+    "quarter": "2023-Q3",
+    "revenue": 10883506,
+    "ebitda": 1739842,
+    "headcount": 344,
+    "valuation": null
+  },
+  {
+    "companyId": "co-002",
+    "quarter": "2023-Q4",
+    "revenue": 11579113,
+    "ebitda": 807024,
+    "headcount": 359,
+    "valuation": 98347623
+  },
+  {
+    "companyId": "co-002",
+    "quarter": "2024-Q1",
+    "revenue": 12384932,
+    "ebitda": 60292,
+    "headcount": 387,
+    "valuation": null
+  },
+  {
+    "companyId": "co-002",
+    "quarter": "2024-Q2",
+    "revenue": 13415262,
+    "ebitda": -1692873,
+    "headcount": 410,
+    "valuation": null
+  },
+  {
+    "companyId": "co-002",
+    "quarter": "2024-Q3",
+    "revenue": 14954495,
+    "ebitda": null,
+    "headcount": 437,
+    "valuation": 52117720
+  },
+  {
+    "companyId": "co-002",
+    "quarter": "2024-Q4",
+    "revenue": 17004241,
+    "ebitda": 3980456,
+    "headcount": null,
+    "valuation": null
+  },
+  {
+    "companyId": "co-002",
+    "quarter": "2025-Q1",
+    "revenue": 18245057,
+    "ebitda": 5987211,
+    "headcount": 504,
+    "valuation": null
+  },
+  {
+    "companyId": "co-002",
+    "quarter": "2025-Q2",
+    "revenue": 20610315,
+    "ebitda": -3814123,
+    "headcount": 541,
+    "valuation": null
+  },
+  {
+    "companyId": "co-002",
+    "quarter": "2025-Q3",
+    "revenue": 21763615,
+    "ebitda": 1407037,
+    "headcount": 571,
+    "valuation": null
+  },
+  {
+    "companyId": "co-002",
+    "quarter": "2025-Q4",
+    "revenue": 23715298,
+    "ebitda": 1158200,
+    "headcount": 605,
+    "valuation": 229200880
+  },
+  {
+    "companyId": "co-003",
+    "quarter": "2023-Q1",
+    "revenue": 61480662,
+    "ebitda": 4275886,
+    "headcount": 1109,
+    "valuation": null
+  },
+  {
+    "companyId": "co-003",
+    "quarter": "2023-Q2",
+    "revenue": 67592015,
+    "ebitda": 4074880,
+    "headcount": 1203,
+    "valuation": 668498915
+  },
+  {
+    "companyId": "co-003",
+    "quarter": "2023-Q3",
+    "revenue": 76152961,
+    "ebitda": 19955516,
+    "headcount": 1274,
+    "valuation": 397420218
+  },
+  {
+    "companyId": "co-003",
+    "quarter": "2023-Q4",
+    "revenue": 86661103,
+    "ebitda": 21136025,
+    "headcount": 1356,
+    "valuation": 679478085
+  },
+  {
+    "companyId": "co-003",
+    "quarter": "2024-Q1",
+    "revenue": 92301528,
+    "ebitda": -11201859,
+    "headcount": 1434,
+    "valuation": 753927845
+  },
+  {
+    "companyId": "co-003",
+    "quarter": "2024-Q2",
+    "revenue": 103514592,
+    "ebitda": 5597717,
+    "headcount": 1507,
+    "valuation": null
+  },
+  {
+    "companyId": "co-003",
+    "quarter": "2024-Q3",
+    "revenue": 113865085,
+    "ebitda": -1388160,
+    "headcount": 1648,
+    "valuation": 754363185
+  },
+  {
+    "companyId": "co-003",
+    "quarter": "2024-Q4",
+    "revenue": 120051580,
+    "ebitda": -6725117,
+    "headcount": 1731,
+    "valuation": 934415383
+  },
+  {
+    "companyId": "co-003",
+    "quarter": "2025-Q1",
+    "revenue": 127071590,
+    "ebitda": -15847462,
+    "headcount": 1803,
+    "valuation": null
+  },
+  {
+    "companyId": "co-003",
+    "quarter": "2025-Q2",
+    "revenue": 144975297,
+    "ebitda": 15612684,
+    "headcount": 1972,
+    "valuation": null
+  },
+  {
+    "companyId": "co-003",
+    "quarter": "2025-Q3",
+    "revenue": 156264993,
+    "ebitda": 2698327,
+    "headcount": 2081,
+    "valuation": null
+  },
+  {
+    "companyId": "co-003",
+    "quarter": "2025-Q4",
+    "revenue": 176297207,
+    "ebitda": -46151871,
+    "headcount": null,
+    "valuation": null
+  },
+  {
+    "companyId": "co-004",
+    "quarter": "2023-Q1",
+    "revenue": 27926603,
+    "ebitda": -7795627,
+    "headcount": 469,
+    "valuation": 157259113
+  },
+  {
+    "companyId": "co-004",
+    "quarter": "2023-Q2",
+    "revenue": 29893856,
+    "ebitda": -7365261,
+    "headcount": 510,
+    "valuation": null
+  },
+  {
+    "companyId": "co-004",
+    "quarter": "2023-Q3",
+    "revenue": 33990422,
+    "ebitda": -6321497,
+    "headcount": 555,
+    "valuation": null
+  },
+  {
+    "companyId": "co-004",
+    "quarter": "2024-Q4",
+    "revenue": 37983001,
+    "ebitda": -8061912,
+    "headcount": 584,
+    "valuation": null
+  },
+  {
+    "companyId": "co-004",
+    "quarter": "2025-Q1",
+    "revenue": 41991843,
+    "ebitda": 7740127,
+    "headcount": null,
+    "valuation": 296569225
+  },
+  {
+    "companyId": "co-004",
+    "quarter": "2025-Q2",
+    "revenue": 45283774,
+    "ebitda": 8814532,
+    "headcount": 641,
+    "valuation": 280337304
+  },
+  {
+    "companyId": "co-004",
+    "quarter": "2025-Q3",
+    "revenue": 48375058,
+    "ebitda": 12293288,
+    "headcount": 691,
+    "valuation": null
+  },
+  {
+    "companyId": "co-004",
+    "quarter": "2025-Q4",
+    "revenue": 55607073,
+    "ebitda": 5714198,
+    "headcount": 727,
+    "valuation": 228462265
+  },
+  {
+    "companyId": "co-005",
+    "quarter": "2023-Q1",
+    "revenue": 71281526,
+    "ebitda": 13930886,
+    "headcount": 3277,
+    "valuation": null
+  },
+  {
+    "companyId": "co-005",
+    "quarter": "2023-Q2",
+    "revenue": null,
+    "ebitda": -4879046,
+    "headcount": 3506,
+    "valuation": null
+  },
+  {
+    "companyId": "co-005",
+    "quarter": "2023-Q3",
+    "revenue": 84337939,
+    "ebitda": null,
+    "headcount": 3655,
+    "valuation": 641426871
+  },
+  {
+    "companyId": "co-005",
+    "quarter": "2023-Q4",
+    "revenue": 95386847,
+    "ebitda": 1246795,
+    "headcount": 3813,
+    "valuation": null
+  },
+  {
+    "companyId": "co-005",
+    "quarter": "2024-Q1",
+    "revenue": null,
+    "ebitda": -31084540,
+    "headcount": 4097,
+    "valuation": null
+  },
+  {
+    "companyId": "co-005",
+    "quarter": "2024-Q2",
+    "revenue": 113530794,
+    "ebitda": 11553753,
+    "headcount": 4439,
+    "valuation": null
+  },
+  {
+    "companyId": "co-005",
+    "quarter": "2024-Q3",
+    "revenue": 119725016,
+    "ebitda": 529667,
+    "headcount": 4768,
+    "valuation": null
+  },
+  {
+    "companyId": "co-005",
+    "quarter": "2024-Q4",
+    "revenue": 134269796,
+    "ebitda": 1549176,
+    "headcount": null,
+    "valuation": 461305550
+  },
+  {
+    "companyId": "co-005",
+    "quarter": "2025-Q1",
+    "revenue": 147912678,
+    "ebitda": 14284571,
+    "headcount": 5484,
+    "valuation": null
+  },
+  {
+    "companyId": "co-005",
+    "quarter": "2025-Q2",
+    "revenue": 169866153,
+    "ebitda": 54752608,
+    "headcount": 6026,
+    "valuation": null
+  },
+  {
+    "companyId": "co-005",
+    "quarter": "2025-Q3",
+    "revenue": null,
+    "ebitda": 48258251,
+    "headcount": 6626,
+    "valuation": 952153945
+  },
+  {
+    "companyId": "co-005",
+    "quarter": "2025-Q4",
+    "revenue": 203989382,
+    "ebitda": -27977635,
+    "headcount": 7071,
+    "valuation": null
+  },
+  {
+    "companyId": "co-006",
+    "quarter": "2023-Q1",
+    "revenue": 76385977,
+    "ebitda": -4332764,
+    "headcount": 2889,
+    "valuation": 448143673
+  },
+  {
+    "companyId": "co-006",
+    "quarter": "2023-Q2",
+    "revenue": null,
+    "ebitda": 23197973,
+    "headcount": 3133,
+    "valuation": null
+  },
+  {
+    "companyId": "co-006",
+    "quarter": "2023-Q3",
+    "revenue": 98330927,
+    "ebitda": 10842299,
+    "headcount": 3346,
+    "valuation": null
+  },
+  {
+    "companyId": "co-006",
+    "quarter": "2023-Q4",
+    "revenue": 108452611,
+    "ebitda": -27279312,
+    "headcount": 3680,
+    "valuation": 654665718
+  },
+  {
+    "companyId": "co-006",
+    "quarter": "2024-Q1",
+    "revenue": 120342900,
+    "ebitda": -22881436,
+    "headcount": 4011,
+    "valuation": null
+  },
+  {
+    "companyId": "co-006",
+    "quarter": "2024-Q2",
+    "revenue": 134536296,
+    "ebitda": 14752580,
+    "headcount": 4342,
+    "valuation": 403745141
+  },
+  {
+    "companyId": "co-006",
+    "quarter": "2024-Q3",
+    "revenue": 142075717,
+    "ebitda": null,
+    "headcount": null,
+    "valuation": null
+  },
+  {
+    "companyId": "co-006",
+    "quarter": "2024-Q4",
+    "revenue": 149996024,
+    "ebitda": null,
+    "headcount": 4925,
+    "valuation": 812956403
+  },
+  {
+    "companyId": "co-006",
+    "quarter": "2025-Q1",
+    "revenue": 160469500,
+    "ebitda": null,
+    "headcount": 5342,
+    "valuation": null
+  },
+  {
+    "companyId": "co-006",
+    "quarter": "2025-Q2",
+    "revenue": 182149386,
+    "ebitda": -5957847,
+    "headcount": 5742,
+    "valuation": null
+  },
+  {
+    "companyId": "co-006",
+    "quarter": "2025-Q3",
+    "revenue": 193718929,
+    "ebitda": 58143876,
+    "headcount": 6215,
+    "valuation": null
+  },
+  {
+    "companyId": "co-006",
+    "quarter": "2025-Q4",
+    "revenue": 214957033,
+    "ebitda": 60032324,
+    "headcount": 6590,
+    "valuation": null
+  },
+  {
+    "companyId": "co-007",
+    "quarter": "2023-Q1",
+    "revenue": 8446343,
+    "ebitda": -777751,
+    "headcount": 387,
+    "valuation": null
+  },
+  {
+    "companyId": "co-007",
+    "quarter": "2023-Q2",
+    "revenue": 9692985,
+    "ebitda": 3321507,
+    "headcount": 403,
+    "valuation": 44269563
+  },
+  {
+    "companyId": "co-007",
+    "quarter": "2023-Q3",
+    "revenue": 11094323,
+    "ebitda": -1764238,
+    "headcount": 427,
+    "valuation": 81978047
+  },
+  {
+    "companyId": "co-007",
+    "quarter": "2023-Q4",
+    "revenue": 11999499,
+    "ebitda": -2225240,
+    "headcount": 457,
+    "valuation": 91362001
+  },
+  {
+    "companyId": "co-007",
+    "quarter": "2024-Q1",
+    "revenue": 13248086,
+    "ebitda": -153179,
+    "headcount": 499,
+    "valuation": null
+  },
+  {
+    "companyId": "co-007",
+    "quarter": "2024-Q2",
+    "revenue": 14689566,
+    "ebitda": -2754339,
+    "headcount": null,
+    "valuation": 83362396
+  },
+  {
+    "companyId": "co-007",
+    "quarter": "2024-Q3",
+    "revenue": 15903762,
+    "ebitda": -1865020,
+    "headcount": null,
+    "valuation": null
+  },
+  {
+    "companyId": "co-007",
+    "quarter": "2024-Q4",
+    "revenue": 17811767,
+    "ebitda": -2115908,
+    "headcount": 588,
+    "valuation": null
+  },
+  {
+    "companyId": "co-007",
+    "quarter": "2025-Q1",
+    "revenue": 19325724,
+    "ebitda": -4738730,
+    "headcount": 634,
+    "valuation": null
+  },
+  {
+    "companyId": "co-007",
+    "quarter": "2025-Q2",
+    "revenue": 22001725,
+    "ebitda": -4108850,
+    "headcount": 692,
+    "valuation": null
+  },
+  {
+    "companyId": "co-007",
+    "quarter": "2025-Q3",
+    "revenue": 24756455,
+    "ebitda": -4813948,
+    "headcount": 758,
+    "valuation": null
+  },
+  {
+    "companyId": "co-007",
+    "quarter": "2025-Q4",
+    "revenue": 26424626,
+    "ebitda": 1253303,
+    "headcount": 790,
+    "valuation": null
+  },
+  {
+    "companyId": "co-008",
+    "quarter": "2023-Q1",
+    "revenue": 42042888,
+    "ebitda": -6458224,
+    "headcount": 2043,
+    "valuation": null
+  },
+  {
+    "companyId": "co-008",
+    "quarter": "2023-Q2",
+    "revenue": 47101788,
+    "ebitda": -2746587,
+    "headcount": 2190,
+    "valuation": null
+  },
+  {
+    "companyId": "co-008",
+    "quarter": "2023-Q3",
+    "revenue": 53562194,
+    "ebitda": 1077635,
+    "headcount": 2394,
+    "valuation": 375024161
+  },
+  {
+    "companyId": "co-008",
+    "quarter": "2023-Q4",
+    "revenue": 58429215,
+    "ebitda": -15921656,
+    "headcount": 2633,
+    "valuation": null
+  },
+  {
+    "companyId": "co-008",
+    "quarter": "2025-Q1",
+    "revenue": 62058889,
+    "ebitda": -408282,
+    "headcount": 2792,
+    "valuation": 501535860
+  },
+  {
+    "companyId": "co-008",
+    "quarter": "2025-Q2",
+    "revenue": 67883772,
+    "ebitda": 5414545,
+    "headcount": 2962,
+    "valuation": null
+  },
+  {
+    "companyId": "co-008",
+    "quarter": "2025-Q3",
+    "revenue": 77010239,
+    "ebitda": -20916517,
+    "headcount": 3147,
+    "valuation": null
+  },
+  {
+    "companyId": "co-008",
+    "quarter": "2025-Q4",
+    "revenue": 81364739,
+    "ebitda": 20160589,
+    "headcount": 3390,
+    "valuation": 500976042
+  },
+  {
+    "companyId": "co-009",
+    "quarter": "2023-Q1",
+    "revenue": null,
+    "ebitda": 916915,
+    "headcount": 1733,
+    "valuation": null
+  },
+  {
+    "companyId": "co-009",
+    "quarter": "2023-Q2",
+    "revenue": 79341058,
+    "ebitda": -14003709,
+    "headcount": 1882,
+    "valuation": 780002243
+  },
+  {
+    "companyId": "co-009",
+    "quarter": "2023-Q3",
+    "revenue": 90068298,
+    "ebitda": 2780760,
+    "headcount": 2057,
+    "valuation": null
+  },
+  {
+    "companyId": "co-009",
+    "quarter": "2023-Q4",
+    "revenue": 94586575,
+    "ebitda": -14449065,
+    "headcount": 2243,
+    "valuation": null
+  },
+  {
+    "companyId": "co-009",
+    "quarter": "2024-Q1",
+    "revenue": 108339099,
+    "ebitda": 12205826,
+    "headcount": 2423,
+    "valuation": 336193020
+  },
+  {
+    "companyId": "co-009",
+    "quarter": "2024-Q2",
+    "revenue": 122936845,
+    "ebitda": -30666200,
+    "headcount": 2553,
+    "valuation": 1222375265
+  },
+  {
+    "companyId": "co-009",
+    "quarter": "2024-Q3",
+    "revenue": null,
+    "ebitda": -37281499,
+    "headcount": 2687,
+    "valuation": null
+  },
+  {
+    "companyId": "co-009",
+    "quarter": "2024-Q4",
+    "revenue": 155671362,
+    "ebitda": -10243738,
+    "headcount": 2947,
+    "valuation": null
+  },
+  {
+    "companyId": "co-009",
+    "quarter": "2025-Q1",
+    "revenue": 173385700,
+    "ebitda": 14547591,
+    "headcount": null,
+    "valuation": 1351097807
+  },
+  {
+    "companyId": "co-009",
+    "quarter": "2025-Q2",
+    "revenue": 192873463,
+    "ebitda": -4535278,
+    "headcount": 3367,
+    "valuation": 847435939
+  },
+  {
+    "companyId": "co-009",
+    "quarter": "2025-Q3",
+    "revenue": 206970764,
+    "ebitda": -4699829,
+    "headcount": 3624,
+    "valuation": null
+  },
+  {
+    "companyId": "co-009",
+    "quarter": "2025-Q4",
+    "revenue": 226198995,
+    "ebitda": 27647641,
+    "headcount": 3927,
+    "valuation": 2031828323
+  },
+  {
+    "companyId": "co-010",
+    "quarter": "2023-Q1",
+    "revenue": 11923670,
+    "ebitda": -474531,
+    "headcount": 307,
+    "valuation": 112732173
+  },
+  {
+    "companyId": "co-010",
+    "quarter": "2023-Q2",
+    "revenue": 13035617,
+    "ebitda": 297041,
+    "headcount": 337,
+    "valuation": null
+  },
+  {
+    "companyId": "co-010",
+    "quarter": "2023-Q3",
+    "revenue": 14330263,
+    "ebitda": -989362,
+    "headcount": 366,
+    "valuation": null
+  },
+  {
+    "companyId": "co-010",
+    "quarter": "2023-Q4",
+    "revenue": 16406382,
+    "ebitda": -2065884,
+    "headcount": 397,
+    "valuation": null
+  },
+  {
+    "companyId": "co-010",
+    "quarter": "2024-Q1",
+    "revenue": 17566551,
+    "ebitda": -2332010,
+    "headcount": null,
+    "valuation": 63709077
+  },
+  {
+    "companyId": "co-010",
+    "quarter": "2024-Q2",
+    "revenue": 19733093,
+    "ebitda": 2324586,
+    "headcount": 444,
+    "valuation": null
+  },
+  {
+    "companyId": "co-010",
+    "quarter": "2024-Q3",
+    "revenue": 22262546,
+    "ebitda": 288267,
+    "headcount": 485,
+    "valuation": null
+  },
+  {
+    "companyId": "co-010",
+    "quarter": "2024-Q4",
+    "revenue": 25561704,
+    "ebitda": -2816258,
+    "headcount": 513,
+    "valuation": null
+  },
+  {
+    "companyId": "co-010",
+    "quarter": "2025-Q1",
+    "revenue": 27324668,
+    "ebitda": 9359159,
+    "headcount": 553,
+    "valuation": 195747177
+  },
+  {
+    "companyId": "co-010",
+    "quarter": "2025-Q2",
+    "revenue": 30080100,
+    "ebitda": -7841421,
+    "headcount": 588,
+    "valuation": null
+  },
+  {
+    "companyId": "co-010",
+    "quarter": "2025-Q3",
+    "revenue": 31974256,
+    "ebitda": -6002459,
+    "headcount": 638,
+    "valuation": 203662070
+  },
+  {
+    "companyId": "co-010",
+    "quarter": "2025-Q4",
+    "revenue": 35864902,
+    "ebitda": 8464638,
+    "headcount": 696,
+    "valuation": null
+  },
+  {
+    "companyId": "co-011",
+    "quarter": "2023-Q1",
+    "revenue": 87342016,
+    "ebitda": -11866237,
+    "headcount": 778,
+    "valuation": null
+  },
+  {
+    "companyId": "co-011",
+    "quarter": "2023-Q2",
+    "revenue": 94110407,
+    "ebitda": 10070255,
+    "headcount": 850,
+    "valuation": 550690800
+  },
+  {
+    "companyId": "co-011",
+    "quarter": "2023-Q3",
+    "revenue": 107833670,
+    "ebitda": 18020467,
+    "headcount": 926,
+    "valuation": null
+  },
+  {
+    "companyId": "co-011",
+    "quarter": "2023-Q4",
+    "revenue": 114505026,
+    "ebitda": 30098847,
+    "headcount": 1010,
+    "valuation": null
+  },
+  {
+    "companyId": "co-011",
+    "quarter": "2024-Q1",
+    "revenue": 126353352,
+    "ebitda": 40980772,
+    "headcount": 1053,
+    "valuation": null
+  },
+  {
+    "companyId": "co-011",
+    "quarter": "2024-Q2",
+    "revenue": 135152216,
+    "ebitda": -15272922,
+    "headcount": 1101,
+    "valuation": null
+  },
+  {
+    "companyId": "co-011",
+    "quarter": "2024-Q3",
+    "revenue": 145248066,
+    "ebitda": 40966985,
+    "headcount": 1165,
+    "valuation": null
+  },
+  {
+    "companyId": "co-011",
+    "quarter": "2024-Q4",
+    "revenue": 158124718,
+    "ebitda": -73862,
+    "headcount": 1264,
+    "valuation": null
+  },
+  {
+    "companyId": "co-011",
+    "quarter": "2025-Q1",
+    "revenue": 173765826,
+    "ebitda": -27607091,
+    "headcount": 1351,
+    "valuation": 1273073436
+  },
+  {
+    "companyId": "co-011",
+    "quarter": "2025-Q2",
+    "revenue": 184826040,
+    "ebitda": -43469430,
+    "headcount": 1432,
+    "valuation": 914762133
+  },
+  {
+    "companyId": "co-011",
+    "quarter": "2025-Q3",
+    "revenue": null,
+    "ebitda": 1861697,
+    "headcount": 1532,
+    "valuation": null
+  },
+  {
+    "companyId": "co-011",
+    "quarter": "2025-Q4",
+    "revenue": 215241861,
+    "ebitda": -40698766,
+    "headcount": null,
+    "valuation": 1833134031
+  },
+  {
+    "companyId": "co-012",
+    "quarter": "2023-Q1",
+    "revenue": 15274402,
+    "ebitda": 11135,
+    "headcount": 448,
+    "valuation": null
+  },
+  {
+    "companyId": "co-012",
+    "quarter": "2023-Q2",
+    "revenue": 16989932,
+    "ebitda": 354457,
+    "headcount": 485,
+    "valuation": 134643420
+  },
+  {
+    "companyId": "co-012",
+    "quarter": "2023-Q3",
+    "revenue": 19291068,
+    "ebitda": null,
+    "headcount": 515,
+    "valuation": null
+  },
+  {
+    "companyId": "co-012",
+    "quarter": "2023-Q4",
+    "revenue": 20791406,
+    "ebitda": 6976452,
+    "headcount": 566,
+    "valuation": 72576516
+  },
+  {
+    "companyId": "co-012",
+    "quarter": "2024-Q1",
+    "revenue": 22454795,
+    "ebitda": 4366318,
+    "headcount": 606,
+    "valuation": 223596512
+  },
+  {
+    "companyId": "co-012",
+    "quarter": "2024-Q2",
+    "revenue": 25381834,
+    "ebitda": -1433538,
+    "headcount": 661,
+    "valuation": null
+  },
+  {
+    "companyId": "co-012",
+    "quarter": "2024-Q3",
+    "revenue": 27585834,
+    "ebitda": 3856894,
+    "headcount": 696,
+    "valuation": 140211112
+  },
+  {
+    "companyId": "co-012",
+    "quarter": "2024-Q4",
+    "revenue": 29022387,
+    "ebitda": 9583754,
+    "headcount": 729,
+    "valuation": null
+  },
+  {
+    "companyId": "co-012",
+    "quarter": "2025-Q1",
+    "revenue": 33080225,
+    "ebitda": -6265964,
+    "headcount": 791,
+    "valuation": 261789640
+  },
+  {
+    "companyId": "co-012",
+    "quarter": "2025-Q2",
+    "revenue": 37387920,
+    "ebitda": -5258053,
+    "headcount": 863,
+    "valuation": null
+  },
+  {
+    "companyId": "co-012",
+    "quarter": "2025-Q3",
+    "revenue": 40105889,
+    "ebitda": 9398563,
+    "headcount": 947,
+    "valuation": 386157270
+  },
+  {
+    "companyId": "co-012",
+    "quarter": "2025-Q4",
+    "revenue": 44979397,
+    "ebitda": 12444534,
+    "headcount": 995,
+    "valuation": 155001003
+  },
+  {
+    "companyId": "co-013",
+    "quarter": "2023-Q1",
+    "revenue": 63153571,
+    "ebitda": 16921243,
+    "headcount": 508,
+    "valuation": null
+  },
+  {
+    "companyId": "co-013",
+    "quarter": "2023-Q2",
+    "revenue": 66528237,
+    "ebitda": 18939469,
+    "headcount": 534,
+    "valuation": null
+  },
+  {
+    "companyId": "co-013",
+    "quarter": "2023-Q3",
+    "revenue": 72069608,
+    "ebitda": 10625714,
+    "headcount": 572,
+    "valuation": null
+  },
+  {
+    "companyId": "co-013",
+    "quarter": "2023-Q4",
+    "revenue": null,
+    "ebitda": 2643500,
+    "headcount": 613,
+    "valuation": null
+  },
+  {
+    "companyId": "co-013",
+    "quarter": "2024-Q1",
+    "revenue": 28942762,
+    "ebitda": 1660505,
+    "headcount": 587,
+    "valuation": 152931371
+  },
+  {
+    "companyId": "co-013",
+    "quarter": "2024-Q2",
+    "revenue": 60779801,
+    "ebitda": -9575650,
+    "headcount": 618,
+    "valuation": null
+  },
+  {
+    "companyId": "co-013",
+    "quarter": "2024-Q3",
+    "revenue": 66271116,
+    "ebitda": -16854513,
+    "headcount": 656,
+    "valuation": 260639136
+  },
+  {
+    "companyId": "co-013",
+    "quarter": "2024-Q4",
+    "revenue": 69743380,
+    "ebitda": 20806285,
+    "headcount": 693,
+    "valuation": null
+  },
+  {
+    "companyId": "co-013",
+    "quarter": "2025-Q1",
+    "revenue": 76135812,
+    "ebitda": -13006157,
+    "headcount": 747,
+    "valuation": 502975590
+  },
+  {
+    "companyId": "co-013",
+    "quarter": "2025-Q2",
+    "revenue": 84609253,
+    "ebitda": -11438999,
+    "headcount": 792,
+    "valuation": null
+  },
+  {
+    "companyId": "co-013",
+    "quarter": "2025-Q3",
+    "revenue": 91981453,
+    "ebitda": -7431251,
+    "headcount": 846,
+    "valuation": null
+  },
+  {
+    "companyId": "co-013",
+    "quarter": "2025-Q4",
+    "revenue": 99523223,
+    "ebitda": null,
+    "headcount": 892,
+    "valuation": 759757238
+  },
+  {
+    "companyId": "co-014",
+    "quarter": "2023-Q1",
+    "revenue": 59331397,
+    "ebitda": 14078306,
+    "headcount": 1594,
+    "valuation": null
+  },
+  {
+    "companyId": "co-014",
+    "quarter": "2023-Q2",
+    "revenue": 64709872,
+    "ebitda": 15272296,
+    "headcount": 1732,
+    "valuation": null
+  },
+  {
+    "companyId": "co-014",
+    "quarter": "2023-Q3",
+    "revenue": 69487313,
+    "ebitda": 13902981,
+    "headcount": 1872,
+    "valuation": null
+  },
+  {
+    "companyId": "co-014",
+    "quarter": "2023-Q4",
+    "revenue": 74261518,
+    "ebitda": 12199600,
+    "headcount": 1968,
+    "valuation": null
+  },
+  {
+    "companyId": "co-014",
+    "quarter": "2024-Q1",
+    "revenue": 80128737,
+    "ebitda": -2365316,
+    "headcount": 2118,
+    "valuation": 651895958
+  },
+  {
+    "companyId": "co-014",
+    "quarter": "2024-Q2",
+    "revenue": 84235006,
+    "ebitda": -19431612,
+    "headcount": null,
+    "valuation": null
+  },
+  {
+    "companyId": "co-014",
+    "quarter": "2024-Q3",
+    "revenue": 90811196,
+    "ebitda": -23928911,
+    "headcount": 2474,
+    "valuation": null
+  },
+  {
+    "companyId": "co-014",
+    "quarter": "2024-Q4",
+    "revenue": 100886129,
+    "ebitda": 17713391,
+    "headcount": 2622,
+    "valuation": null
+  },
+  {
+    "companyId": "co-014",
+    "quarter": "2025-Q1",
+    "revenue": 107750402,
+    "ebitda": 22012543,
+    "headcount": 2743,
+    "valuation": null
+  },
+  {
+    "companyId": "co-014",
+    "quarter": "2025-Q2",
+    "revenue": 123139672,
+    "ebitda": -24232359,
+    "headcount": null,
+    "valuation": null
+  },
+  {
+    "companyId": "co-014",
+    "quarter": "2025-Q3",
+    "revenue": null,
+    "ebitda": -15689260,
+    "headcount": 3087,
+    "valuation": null
+  },
+  {
+    "companyId": "co-014",
+    "quarter": "2025-Q4",
+    "revenue": 147097953,
+    "ebitda": 981808,
+    "headcount": 3347,
+    "valuation": null
+  },
+  {
+    "companyId": "co-015",
+    "quarter": "2023-Q1",
+    "revenue": 19946756,
+    "ebitda": -5534248,
+    "headcount": 932,
+    "valuation": 159903043
+  },
+  {
+    "companyId": "co-015",
+    "quarter": "2023-Q2",
+    "revenue": 21708152,
+    "ebitda": -4866808,
+    "headcount": 981,
+    "valuation": null
+  },
+  {
+    "companyId": "co-015",
+    "quarter": "2023-Q3",
+    "revenue": null,
+    "ebitda": 8162822,
+    "headcount": 1044,
+    "valuation": 154952372
+  },
+  {
+    "companyId": "co-015",
+    "quarter": "2023-Q4",
+    "revenue": 27134697,
+    "ebitda": 3678294,
+    "headcount": 1112,
+    "valuation": 259701699
+  },
+  {
+    "companyId": "co-015",
+    "quarter": "2024-Q1",
+    "revenue": 30140291,
+    "ebitda": -4871483,
+    "headcount": 1185,
+    "valuation": null
+  },
+  {
+    "companyId": "co-015",
+    "quarter": "2024-Q2",
+    "revenue": 34441259,
+    "ebitda": 9941688,
+    "headcount": 1259,
+    "valuation": null
+  },
+  {
+    "companyId": "co-015",
+    "quarter": "2024-Q3",
+    "revenue": 37535309,
+    "ebitda": 7379001,
+    "headcount": 1337,
+    "valuation": null
+  },
+  {
+    "companyId": "co-015",
+    "quarter": "2024-Q4",
+    "revenue": 39979756,
+    "ebitda": -11230302,
+    "headcount": 1398,
+    "valuation": 326753813
+  },
+  {
+    "companyId": "co-015",
+    "quarter": "2025-Q1",
+    "revenue": 43855493,
+    "ebitda": -8225362,
+    "headcount": 1509,
+    "valuation": null
+  },
+  {
+    "companyId": "co-015",
+    "quarter": "2025-Q2",
+    "revenue": 48292881,
+    "ebitda": -8532036,
+    "headcount": 1657,
+    "valuation": null
+  },
+  {
+    "companyId": "co-015",
+    "quarter": "2025-Q3",
+    "revenue": 54975352,
+    "ebitda": -6778787,
+    "headcount": 1818,
+    "valuation": 380468613
+  },
+  {
+    "companyId": "co-015",
+    "quarter": "2025-Q4",
+    "revenue": 58269315,
+    "ebitda": 20214233,
+    "headcount": 1908,
+    "valuation": null
+  },
+  {
+    "companyId": "co-016",
+    "quarter": "2023-Q1",
+    "revenue": 35634572,
+    "ebitda": 12217172,
+    "headcount": 693,
+    "valuation": null
+  },
+  {
+    "companyId": "co-016",
+    "quarter": "2023-Q2",
+    "revenue": 37672994,
+    "ebitda": 1845398,
+    "headcount": 728,
+    "valuation": 220057129
+  },
+  {
+    "companyId": "co-016",
+    "quarter": "2023-Q3",
+    "revenue": 42359091,
+    "ebitda": null,
+    "headcount": 781,
+    "valuation": null
+  },
+  {
+    "companyId": "co-016",
+    "quarter": "2023-Q4",
+    "revenue": 48382556,
+    "ebitda": -6137024,
+    "headcount": 848,
+    "valuation": null
+  },
+  {
+    "companyId": "co-016",
+    "quarter": "2024-Q4",
+    "revenue": 54427698,
+    "ebitda": -14681955,
+    "headcount": 892,
+    "valuation": 369157355
+  },
+  {
+    "companyId": "co-016",
+    "quarter": "2025-Q1",
+    "revenue": 58386592,
+    "ebitda": 11354800,
+    "headcount": 929,
+    "valuation": null
+  },
+  {
+    "companyId": "co-016",
+    "quarter": "2025-Q2",
+    "revenue": 63181972,
+    "ebitda": -15028503,
+    "headcount": 978,
+    "valuation": null
+  },
+  {
+    "companyId": "co-016",
+    "quarter": "2025-Q3",
+    "revenue": 67526052,
+    "ebitda": -8874381,
+    "headcount": 1029,
+    "valuation": 301279498
+  },
+  {
+    "companyId": "co-016",
+    "quarter": "2025-Q4",
+    "revenue": 76929711,
+    "ebitda": 21501844,
+    "headcount": 1102,
+    "valuation": null
+  },
+  {
+    "companyId": "co-017",
+    "quarter": "2023-Q1",
+    "revenue": 14769309,
+    "ebitda": 5113677,
+    "headcount": 567,
+    "valuation": null
+  },
+  {
+    "companyId": "co-017",
+    "quarter": "2023-Q2",
+    "revenue": 16613469,
+    "ebitda": 4024863,
+    "headcount": 596,
+    "valuation": null
+  },
+  {
+    "companyId": "co-017",
+    "quarter": "2023-Q3",
+    "revenue": 18601076,
+    "ebitda": 1943358,
+    "headcount": 636,
+    "valuation": 148488169
+  },
+  {
+    "companyId": "co-017",
+    "quarter": "2023-Q4",
+    "revenue": 19571938,
+    "ebitda": -4698439,
+    "headcount": 674,
+    "valuation": null
+  },
+  {
+    "companyId": "co-017",
+    "quarter": "2024-Q1",
+    "revenue": 22061642,
+    "ebitda": -3916254,
+    "headcount": null,
+    "valuation": 83639406
+  },
+  {
+    "companyId": "co-017",
+    "quarter": "2024-Q2",
+    "revenue": 25343480,
+    "ebitda": null,
+    "headcount": 791,
+    "valuation": 112078448
+  },
+  {
+    "companyId": "co-017",
+    "quarter": "2024-Q3",
+    "revenue": 26798177,
+    "ebitda": 3540111,
+    "headcount": 867,
+    "valuation": null
+  },
+  {
+    "companyId": "co-017",
+    "quarter": "2024-Q4",
+    "revenue": 28627388,
+    "ebitda": null,
+    "headcount": 950,
+    "valuation": null
+  },
+  {
+    "companyId": "co-017",
+    "quarter": "2025-Q1",
+    "revenue": 30917189,
+    "ebitda": 9252895,
+    "headcount": 1031,
+    "valuation": 304228539
+  },
+  {
+    "companyId": "co-017",
+    "quarter": "2025-Q2",
+    "revenue": 34704274,
+    "ebitda": 976828,
+    "headcount": 1087,
+    "valuation": null
+  },
+  {
+    "companyId": "co-017",
+    "quarter": "2025-Q3",
+    "revenue": 36770339,
+    "ebitda": null,
+    "headcount": 1185,
+    "valuation": null
+  },
+  {
+    "companyId": "co-017",
+    "quarter": "2025-Q4",
+    "revenue": 40502186,
+    "ebitda": -2638710,
+    "headcount": 1280,
+    "valuation": null
+  },
+  {
+    "companyId": "co-018",
+    "quarter": "2023-Q1",
+    "revenue": 55510580,
+    "ebitda": 12570730,
+    "headcount": 628,
+    "valuation": null
+  },
+  {
+    "companyId": "co-018",
+    "quarter": "2023-Q2",
+    "revenue": 58442289,
+    "ebitda": null,
+    "headcount": 657,
+    "valuation": null
+  },
+  {
+    "companyId": "co-018",
+    "quarter": "2023-Q3",
+    "revenue": 62830124,
+    "ebitda": 21479850,
+    "headcount": 694,
+    "valuation": 357192639
+  },
+  {
+    "companyId": "co-018",
+    "quarter": "2023-Q4",
+    "revenue": 69868284,
+    "ebitda": 22128678,
+    "headcount": 741,
+    "valuation": null
+  },
+  {
+    "companyId": "co-018",
+    "quarter": "2024-Q1",
+    "revenue": 79785505,
+    "ebitda": null,
+    "headcount": 806,
+    "valuation": null
+  },
+  {
+    "companyId": "co-018",
+    "quarter": "2024-Q2",
+    "revenue": null,
+    "ebitda": -1473260,
+    "headcount": 877,
+    "valuation": 871344615
+  },
+  {
+    "companyId": "co-018",
+    "quarter": "2024-Q3",
+    "revenue": 98018621,
+    "ebitda": -27727973,
+    "headcount": 950,
+    "valuation": 460009246
+  },
+  {
+    "companyId": "co-018",
+    "quarter": "2024-Q4",
+    "revenue": 109583061,
+    "ebitda": 30747324,
+    "headcount": 1029,
+    "valuation": 911260668
+  },
+  {
+    "companyId": "co-018",
+    "quarter": "2025-Q1",
+    "revenue": 117730594,
+    "ebitda": null,
+    "headcount": 1124,
+    "valuation": null
+  },
+  {
+    "companyId": "co-018",
+    "quarter": "2025-Q2",
+    "revenue": 134206971,
+    "ebitda": 14471871,
+    "headcount": null,
+    "valuation": null
+  },
+  {
+    "companyId": "co-018",
+    "quarter": "2025-Q3",
+    "revenue": 148084796,
+    "ebitda": 35617069,
+    "headcount": 1241,
+    "valuation": null
+  },
+  {
+    "companyId": "co-018",
+    "quarter": "2025-Q4",
+    "revenue": 166558237,
+    "ebitda": null,
+    "headcount": 1324,
+    "valuation": null
+  },
+  {
+    "companyId": "co-019",
+    "quarter": "2023-Q1",
+    "revenue": 28734485,
+    "ebitda": 6175277,
+    "headcount": null,
+    "valuation": null
+  },
+  {
+    "companyId": "co-019",
+    "quarter": "2023-Q2",
+    "revenue": 31220798,
+    "ebitda": null,
+    "headcount": 1188,
+    "valuation": null
+  },
+  {
+    "companyId": "co-019",
+    "quarter": "2023-Q3",
+    "revenue": 35042354,
+    "ebitda": 7561532,
+    "headcount": 1269,
+    "valuation": 259097244
+  },
+  {
+    "companyId": "co-019",
+    "quarter": "2023-Q4",
+    "revenue": 37322476,
+    "ebitda": null,
+    "headcount": 1387,
+    "valuation": 226524000
+  },
+  {
+    "companyId": "co-019",
+    "quarter": "2024-Q1",
+    "revenue": 41227871,
+    "ebitda": -3223468,
+    "headcount": 1480,
+    "valuation": null
+  },
+  {
+    "companyId": "co-019",
+    "quarter": "2024-Q2",
+    "revenue": 44377536,
+    "ebitda": 7290945,
+    "headcount": 1611,
+    "valuation": 325015560
+  },
+  {
+    "companyId": "co-019",
+    "quarter": "2024-Q3",
+    "revenue": 50693419,
+    "ebitda": -4706924,
+    "headcount": 1716,
+    "valuation": 326593563
+  },
+  {
+    "companyId": "co-019",
+    "quarter": "2024-Q4",
+    "revenue": null,
+    "ebitda": 16495730,
+    "headcount": 1811,
+    "valuation": null
+  },
+  {
+    "companyId": "co-019",
+    "quarter": "2025-Q1",
+    "revenue": 65294309,
+    "ebitda": -3100142,
+    "headcount": 1954,
+    "valuation": 248365799
+  },
+  {
+    "companyId": "co-019",
+    "quarter": "2025-Q2",
+    "revenue": null,
+    "ebitda": 9637716,
+    "headcount": 2117,
+    "valuation": null
+  },
+  {
+    "companyId": "co-019",
+    "quarter": "2025-Q3",
+    "revenue": 75492938,
+    "ebitda": 26078823,
+    "headcount": 2253,
+    "valuation": 248292372
+  },
+  {
+    "companyId": "co-019",
+    "quarter": "2025-Q4",
+    "revenue": 86010019,
+    "ebitda": null,
+    "headcount": 2441,
+    "valuation": null
+  },
+  {
+    "companyId": "co-020",
+    "quarter": "2023-Q1",
+    "revenue": 17835941,
+    "ebitda": -2450284,
+    "headcount": null,
+    "valuation": null
+  },
+  {
+    "companyId": "co-020",
+    "quarter": "2023-Q2",
+    "revenue": 20496114,
+    "ebitda": -1065119,
+    "headcount": 177,
+    "valuation": 157734407
+  },
+  {
+    "companyId": "co-020",
+    "quarter": "2023-Q3",
+    "revenue": null,
+    "ebitda": 1302392,
+    "headcount": 192,
+    "valuation": null
+  },
+  {
+    "companyId": "co-020",
+    "quarter": "2023-Q4",
+    "revenue": 23566760,
+    "ebitda": 5545029,
+    "headcount": 204,
+    "valuation": 157424718
+  },
+  {
+    "companyId": "co-020",
+    "quarter": "2024-Q1",
+    "revenue": 26218754,
+    "ebitda": -4336164,
+    "headcount": 219,
+    "valuation": null
+  },
+  {
+    "companyId": "co-020",
+    "quarter": "2024-Q2",
+    "revenue": 27990280,
+    "ebitda": -1167690,
+    "headcount": 231,
+    "valuation": 175888107
+  },
+  {
+    "companyId": "co-020",
+    "quarter": "2024-Q3",
+    "revenue": 31766488,
+    "ebitda": 10004315,
+    "headcount": 253,
+    "valuation": null
+  },
+  {
+    "companyId": "co-020",
+    "quarter": "2024-Q4",
+    "revenue": 34906612,
+    "ebitda": 1091713,
+    "headcount": 268,
+    "valuation": null
+  },
+  {
+    "companyId": "co-020",
+    "quarter": "2025-Q1",
+    "revenue": 38003190,
+    "ebitda": null,
+    "headcount": 286,
+    "valuation": null
+  },
+  {
+    "companyId": "co-020",
+    "quarter": "2025-Q2",
+    "revenue": 40351828,
+    "ebitda": 3092335,
+    "headcount": null,
+    "valuation": null
+  },
+  {
+    "companyId": "co-020",
+    "quarter": "2025-Q3",
+    "revenue": 42962511,
+    "ebitda": 5375798,
+    "headcount": 329,
+    "valuation": null
+  },
+  {
+    "companyId": "co-020",
+    "quarter": "2025-Q4",
+    "revenue": 46654641,
+    "ebitda": -7033950,
+    "headcount": 352,
+    "valuation": null
+  },
+  {
+    "companyId": "co-022",
+    "quarter": "2023-Q1",
+    "revenue": 76614657,
+    "ebitda": -11760248,
+    "headcount": 1473,
+    "valuation": null
+  },
+  {
+    "companyId": "co-022",
+    "quarter": "2023-Q2",
+    "revenue": 87420459,
+    "ebitda": -14629757,
+    "headcount": 1565,
+    "valuation": null
+  },
+  {
+    "companyId": "co-022",
+    "quarter": "2023-Q3",
+    "revenue": 100432076,
+    "ebitda": 14373435,
+    "headcount": 1644,
+    "valuation": null
+  },
+  {
+    "companyId": "co-022",
+    "quarter": "2023-Q4",
+    "revenue": 114497263,
+    "ebitda": 17067181,
+    "headcount": 1713,
+    "valuation": 1068074037
+  },
+  {
+    "companyId": "co-022",
+    "quarter": "2024-Q1",
+    "revenue": 122803317,
+    "ebitda": -18522727,
+    "headcount": 1882,
+    "valuation": 778563670
+  },
+  {
+    "companyId": "co-022",
+    "quarter": "2024-Q2",
+    "revenue": 130600686,
+    "ebitda": 31864094,
+    "headcount": 2035,
+    "valuation": null
+  },
+  {
+    "companyId": "co-022",
+    "quarter": "2024-Q3",
+    "revenue": 147890472,
+    "ebitda": -2748272,
+    "headcount": 2224,
+    "valuation": null
+  },
+  {
+    "companyId": "co-022",
+    "quarter": "2024-Q4",
+    "revenue": 162030966,
+    "ebitda": -46235499,
+    "headcount": 2324,
+    "valuation": null
+  },
+  {
+    "companyId": "co-022",
+    "quarter": "2025-Q1",
+    "revenue": 172158007,
+    "ebitda": -37226659,
+    "headcount": 2547,
+    "valuation": 551547406
+  },
+  {
+    "companyId": "co-022",
+    "quarter": "2025-Q2",
+    "revenue": 191913894,
+    "ebitda": -30711239,
+    "headcount": 2791,
+    "valuation": null
+  },
+  {
+    "companyId": "co-022",
+    "quarter": "2025-Q3",
+    "revenue": 212082151,
+    "ebitda": 39523756,
+    "headcount": 2905,
+    "valuation": null
+  },
+  {
+    "companyId": "co-022",
+    "quarter": "2025-Q4",
+    "revenue": 235989026,
+    "ebitda": -55049978,
+    "headcount": 3046,
+    "valuation": null
+  },
+  {
+    "companyId": "co-023",
+    "quarter": "2023-Q1",
+    "revenue": 28768166,
+    "ebitda": 5535005,
+    "headcount": 1043,
+    "valuation": null
+  },
+  {
+    "companyId": "co-023",
+    "quarter": "2023-Q2",
+    "revenue": 32735111,
+    "ebitda": 1907102,
+    "headcount": 1135,
+    "valuation": null
+  },
+  {
+    "companyId": "co-023",
+    "quarter": "2023-Q3",
+    "revenue": 35956590,
+    "ebitda": 1782841,
+    "headcount": 1248,
+    "valuation": null
+  },
+  {
+    "companyId": "co-023",
+    "quarter": "2023-Q4",
+    "revenue": 38084622,
+    "ebitda": 1573918,
+    "headcount": 1300,
+    "valuation": null
+  },
+  {
+    "companyId": "co-023",
+    "quarter": "2024-Q1",
+    "revenue": null,
+    "ebitda": -4528924,
+    "headcount": 1412,
+    "valuation": null
+  },
+  {
+    "companyId": "co-023",
+    "quarter": "2024-Q2",
+    "revenue": 42988515,
+    "ebitda": -9135620,
+    "headcount": 1522,
+    "valuation": null
+  },
+  {
+    "companyId": "co-023",
+    "quarter": "2024-Q3",
+    "revenue": 48119008,
+    "ebitda": -14167508,
+    "headcount": 1673,
+    "valuation": null
+  },
+  {
+    "companyId": "co-023",
+    "quarter": "2024-Q4",
+    "revenue": 54958428,
+    "ebitda": 3329138,
+    "headcount": 1770,
+    "valuation": 522835169
+  },
+  {
+    "companyId": "co-023",
+    "quarter": "2025-Q1",
+    "revenue": 60975225,
+    "ebitda": 5827236,
+    "headcount": 1924,
+    "valuation": null
+  },
+  {
+    "companyId": "co-023",
+    "quarter": "2025-Q2",
+    "revenue": 65944281,
+    "ebitda": -19689776,
+    "headcount": 2010,
+    "valuation": 262131045
+  },
+  {
+    "companyId": "co-023",
+    "quarter": "2025-Q3",
+    "revenue": 75376307,
+    "ebitda": 25449945,
+    "headcount": 2190,
+    "valuation": 245010151
+  },
+  {
+    "companyId": "co-023",
+    "quarter": "2025-Q4",
+    "revenue": 81645502,
+    "ebitda": null,
+    "headcount": 2302,
+    "valuation": null
+  },
+  {
+    "companyId": "co-024",
+    "quarter": "2023-Q1",
+    "revenue": 68750751,
+    "ebitda": 10429977,
+    "headcount": 1971,
+    "valuation": null
+  },
+  {
+    "companyId": "co-024",
+    "quarter": "2023-Q2",
+    "revenue": 74938303,
+    "ebitda": 4197256,
+    "headcount": 2059,
+    "valuation": 512250794
+  },
+  {
+    "companyId": "co-024",
+    "quarter": "2023-Q3",
+    "revenue": 85477880,
+    "ebitda": null,
+    "headcount": 2231,
+    "valuation": null
+  },
+  {
+    "companyId": "co-024",
+    "quarter": "2023-Q4",
+    "revenue": 94336693,
+    "ebitda": -565333,
+    "headcount": 2413,
+    "valuation": null
+  },
+  {
+    "companyId": "co-024",
+    "quarter": "2024-Q1",
+    "revenue": null,
+    "ebitda": 14452480,
+    "headcount": 2651,
+    "valuation": 638635226
+  },
+  {
+    "companyId": "co-024",
+    "quarter": "2024-Q2",
+    "revenue": null,
+    "ebitda": -15844038,
+    "headcount": null,
+    "valuation": 791374913
+  },
+  {
+    "companyId": "co-024",
+    "quarter": "2024-Q3",
+    "revenue": 118251590,
+    "ebitda": 13096183,
+    "headcount": 2982,
+    "valuation": null
+  },
+  {
+    "companyId": "co-024",
+    "quarter": "2024-Q4",
+    "revenue": 124571027,
+    "ebitda": 21444828,
+    "headcount": null,
+    "valuation": 707163359
+  },
+  {
+    "companyId": "co-024",
+    "quarter": "2025-Q1",
+    "revenue": null,
+    "ebitda": -3662519,
+    "headcount": 3262,
+    "valuation": null
+  },
+  {
+    "companyId": "co-024",
+    "quarter": "2025-Q2",
+    "revenue": 161032609,
+    "ebitda": null,
+    "headcount": 3567,
+    "valuation": null
+  },
+  {
+    "companyId": "co-024",
+    "quarter": "2025-Q3",
+    "revenue": 184908043,
+    "ebitda": 8952978,
+    "headcount": 3722,
+    "valuation": 966426429
+  },
+  {
+    "companyId": "co-024",
+    "quarter": "2025-Q4",
+    "revenue": 204092977,
+    "ebitda": null,
+    "headcount": 3880,
+    "valuation": 1472339216
+  },
+  {
+    "companyId": "co-023",
+    "quarter": "2025-Q1",
+    "revenue": 54877703,
+    "ebitda": 4953151,
+    "headcount": 1924,
+    "valuation": null
+  },
+  {
+    "companyId": "co-014",
+    "quarter": "2023-Q2",
+    "revenue": 71180859,
+    "ebitda": 16799526,
+    "headcount": 1732,
+    "valuation": null
+  },
+  {
+    "companyId": "co-999",
+    "quarter": "2024-Q2",
+    "revenue": 5000000,
+    "ebitda": 1000000,
+    "headcount": 45,
+    "valuation": 35000000
+  },
+  {
+    "companyId": "co-998",
+    "quarter": "2024-Q3",
+    "revenue": 3500000,
+    "ebitda": -500000,
+    "headcount": 32,
+    "valuation": null
+  }
+]

@@ -5,3 +5,5 @@ dist/
 coverage/
 pnpm-lock.yaml
 next-env.d.ts
+
+packages/core/test/fixtures/
