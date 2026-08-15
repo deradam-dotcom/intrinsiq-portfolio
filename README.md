@@ -14,6 +14,7 @@ The browser never talks to the upstream data source. All three feeds are fetched
 | Framework       | Next.js (App Router)            | 16.3.0         |
 | UI runtime      | React                           | 19.2.8         |
 | Language        | TypeScript, `strict`            | 6.0.3          |
+| Validation      | Zod, at the upstream boundary   | 4.4.3          |
 | Linting         | ESLint (flat config) + Prettier | 9.39.5 / 3.9.6 |
 
 Styling is plain CSS Modules. A component library is introduced only where interactive primitives justify it.
