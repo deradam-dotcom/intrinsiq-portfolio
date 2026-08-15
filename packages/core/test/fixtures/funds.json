@@ -1,0 +1,42 @@
+[
+  {
+    "id": "fund-001",
+    "name": "Northwind Fund II",
+    "strategy": "private_equity",
+    "vintageYear": 2020,
+    "status": "post_investment",
+    "targetSizeMillionsUsd": 352
+  },
+  {
+    "id": "fund-002",
+    "name": "Venture Catalyst Fund IV",
+    "strategy": "venture_capital",
+    "vintageYear": 2020,
+    "status": "investing",
+    "targetSizeMillionsUsd": 331
+  },
+  {
+    "id": "fund-003",
+    "name": "Acme Growth Fund III",
+    "strategy": "private_credit",
+    "vintageYear": 2020,
+    "status": "investing",
+    "targetSizeMillionsUsd": 447
+  },
+  {
+    "id": "fund-004",
+    "name": "Apex Capital Fund V",
+    "strategy": "private_credit",
+    "vintageYear": 2019,
+    "status": "investing",
+    "targetSizeMillionsUsd": 275
+  },
+  {
+    "id": "fund-005",
+    "name": "Zenith Partners Fund I",
+    "strategy": "private_credit",
+    "vintageYear": 2021,
+    "status": "investing",
+    "targetSizeMillionsUsd": 262
+  }
+]

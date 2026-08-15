@@ -1,7 +1,7 @@
 import { normalizeKpiFeed } from '#normalize'
 import type { UpstreamKpi } from '#schemas'
 import { describe, expect, it } from 'vitest'
-import { companyIds, kpis } from './fixtures'
+import { companyIds, kpis } from './feeds'
 
 const feed = normalizeKpiFeed(kpis, companyIds)
 

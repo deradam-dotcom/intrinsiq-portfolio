@@ -75,8 +75,10 @@ packages/core/          Pure TypeScript domain — no React, no Next, no fetch,
                         portfolio in one pure call (R4, R5, R8).
   test/fixtures/        Upstream feeds, frozen byte-for-byte, so the suite never
                         reaches the network — each one lands when a test needs it.
-  test/fixtures.ts      Parses those files through the upstream schemas, which
+  test/feeds.ts         Parses those files through the upstream schemas, which
                         makes schema drift fail every test that loads them.
+  test/*.test.ts        One file per source module, each named after the rule it
+                        defends rather than the function it calls.
 ```
 
 ## Data assumptions
@@ -127,9 +129,18 @@ The risk in this project is not in rendering, it is in the transformation. A mis
 
 Fixtures are frozen copies of the upstream feeds, complete rather than trimmed on purpose: their value is that they reproduce the real payload including every defect, and hand-picking rows is how a fixture quietly stops resembling the source it stands in for. Nothing in the suite touches the network, so neither an upstream outage nor a reseed of the vendor data can turn the build red without anyone having changed the code. A feed is committed at the point a test first reads it, not before.
 
-Covered so far:
+Covered so far, 34 tests over the frozen feeds:
 
-- **R1** — the two conflicting duplicates resolve to their later row. The pair is chosen deliberately: `co-014` is restated upwards and `co-023` downwards, so the assertion distinguishes "last wins" from "largest wins", which a single duplicate could not.
-- **R1** — a corrected row keeps its chronological position rather than jumping to the end of the company's block.
-- **R2** — orphan rows disappear, and the discarded and merged counts add up against the raw row count, so nothing vanishes unaccounted for.
-- Reported nulls survive normalisation as nulls, and no zero is invented anywhere.
+**Normalisation** — the two conflicting duplicates resolve to their later row. The pair is chosen deliberately: `co-014` is restated upwards and `co-023` downwards, so the assertion distinguishes "last wins" from "largest wins", which a single duplicate could not (R1). A corrected row keeps its chronological position rather than jumping to the end of its block. Orphan rows disappear, and the discarded and merged counts add up against the raw row count, so nothing vanishes unaccounted for (R2). Reported nulls survive as nulls and no zero is invented.
+
+**The quarter grid** — it spans the full reporting window found in the feed, fills quarters nobody reported, and returns nothing at all rather than a partial grid when no quarter is readable. Quarter arithmetic is checked across year boundaries in both directions, because an off-by-one there would silently compare the wrong two quarters and every number downstream would still look plausible.
+
+**Company series** — an unreported quarter stays null rather than zero, and `missingQuarters` names exactly the quarters that carried no row (R3). The distinction that matters most has its own test: `co-009` filed a row for `2024-Q3` with a null revenue in it, and that quarter must _not_ appear as missing, because a company that reported without a figure is not the same as a company that stayed silent. `co-021` produces a full-length empty series and a summary of nulls instead of throwing or reporting zero (R9). `co-014`, which has exactly one pricing event, carries that valuation forward eight quarters with the right "as of" label, while its per-quarter series keeps the single event where it happened (R6). A loss passes through as a negative margin, and a margin with no revenue underneath comes back null (R7).
+
+**Fund aggregation** — the one figure quoted in millions converts once at the boundary (R8). Coverage counts the companies behind the revenue figure rather than the ones that sent a row, and is asserted to drop from four to three in the quarter `fund-003`'s total drops (R4). A silent company stays in the denominator so the gap remains visible.
+
+**Like-for-like growth** — the headline test (R5). `fund-003`'s `2024-Q3` total is 36% below the previous quarter; measured over the companies present in both quarters it is an 8% increase. Both numbers are asserted against sums written out by hand rather than against whatever the implementation happened to return. A second test pins down that an excluded company leaves the base as well as the numerator, which is the half of the rule that is easy to get wrong and impossible to see. Growth comes back null when the two quarters share no company at all, rather than producing a rate from an empty set.
+
+Both rules the dashboard rests on were mutation-checked: inverting the coverage definition fails two tests, removing the like-for-like filter fails three. A test that still passes against a broken implementation is decoration, and these do not.
+
+**Not covered, deliberately.** Nothing asserts that a chart draws a particular path, and there is no end-to-end suite. Rendering defects announce themselves the moment the page loads; an aggregate computed over the wrong set of companies looks entirely reasonable and is wrong by tens of millions. The effort follows the second kind.
