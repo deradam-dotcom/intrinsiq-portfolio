@@ -54,8 +54,13 @@ pnpm format:check  # Verifies formatting without writing
 ## Project structure
 
 ```
-apps/web/          Next.js application — route handlers and pages
-  app/             App Router: layouts, pages and the API layer
-packages/core/     pure TypeScript domain — types, schemas, normalisation, aggregation
-                   contains no React, no Next, no fetch, which is why it tests fast
+apps/web/               Next.js application — route handlers and pages
+  app/                  App Router: layouts, pages and the API layer
+packages/core/          pure TypeScript domain — no React, no Next, no fetch,
+                        which is why it tests fast and without a network
+  src/schemas.ts        zod schemas for the three upstream feeds, plus the types
+                        inferred from them — the only description of what the
+                        vendor is allowed to send us
+  src/types.ts          the domain shapes this app serves to its own frontend
+  src/normalize.ts      resolves the defects in the raw KPI feed (R1, R2)
 ```
