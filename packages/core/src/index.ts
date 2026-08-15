@@ -1,3 +1,4 @@
+export * from '#aggregate'
 export * from '#metrics'
 export * from '#normalize'
 export * from '#quarters'
