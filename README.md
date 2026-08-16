@@ -38,7 +38,7 @@ pnpm install
 pnpm dev
 ```
 
-No environment variables are required to run the project. Upstream data URLs ship as defaults; see the Configuration section once it lands.
+**No `.env` file is needed.** A fresh clone runs against the real upstream, because the three feed URLs, the request timeout and the cache window all ship with working defaults. They can still be overridden — `UPSTREAM_FUNDS_URL`, `UPSTREAM_COMPANIES_URL`, `UPSTREAM_KPIS_URL`, `UPSTREAM_TIMEOUT_MS` (`5000`) and `UPSTREAM_REVALIDATE_SECONDS` (`3600`) — which is what makes it possible to point a feed at a local copy. They are validated on startup, so a bad value stops the server naming the offending field instead of turning up later as `undefined` inside a fetch URL.
 
 ## Scripts
 
@@ -58,6 +58,10 @@ pnpm format:check  # Verifies formatting without writing
 ```
 apps/web/               Next.js application — route handlers and pages
   app/                  App Router: layouts, pages and the API layer.
+  lib/env.ts            The only module that reads the environment, validated
+                        once so a bad value fails at startup rather than in a URL.
+  lib/upstream.ts       The only module that touches the network: fetches the
+                        three feeds, validates them, hands them to the domain.
 packages/core/          Pure TypeScript domain — no React, no Next, no fetch,
                         which is why it tests fast and without a network.
   src/schemas.ts        Zod schemas for the three upstream feeds, plus the types
@@ -123,6 +127,16 @@ Only 96 of 269 rows carry a valuation, scattered irregularly. This is not a defe
 **R9 — a company with no KPIs at all is still a company.**
 `co-021` (Surge Technologies, fund-005) reports nothing. It gets a full-length series of nulls and a summary whose `latestQuarter` is `null`, so the fund page renders it as "not reporting" rather than as a company worth zero. Growth for any company is `null` when either endpoint is missing, which is why `co-008` has no year-on-year figure: its latest quarter is `2025-Q4` and the matching base sits inside its 2024 gap. Falling back to an older pair would have produced a plausible-looking number that no longer means "year on year as of the latest quarter".
 
+## Decisions & trade-offs
+
+**The server boundary is enforced by the build, not by convention.** `lib/env.ts` and `lib/upstream.ts` both open with `import 'server-only'`. If a Client Component ever pulls one of them in — directly, or through six layers of re-export — the build fails with a readable error instead of shipping the module to the browser. There is no secret in these files today; the guard is there because the boundary is the kind of rule that survives a code review and then quietly gets crossed three weeks later. For the same reason nothing here carries a `NEXT_PUBLIC_` prefix: that prefix inlines a value into the client bundle irreversibly, and an API layer that leaks its own upstream URLs has stopped being one.
+
+`packages/core` deliberately does **not** get that guard, which is the trade-off half of the decision. It is pure transformation with no I/O, so tying it to a Next-specific package would cost it exactly the framework independence and the fast, network-free tests it exists for. It stays out of the client bundle by the weaker guarantee — nothing on the client imports it — and that is the right price here.
+
+**The upstream is treated as untrusted input, even though it behaves today.** Every feed passes through its Zod schema before the domain sees it, so a vendor that starts sending revenue as a string produces a handled error naming the field rather than an `undefined.map()` five layers deeper. The fixtures are parsed through those same schemas, which is why schema drift fails the test suite as well as the request. Each call also carries `AbortSignal.timeout()`: an upstream that accepts the connection and then goes quiet is the failure mode that hurts most, because without a deadline it holds the request open until something else gives up first.
+
+**Deliberately left out: rate limiting, auth, CSRF tokens, secret rotation.** This app serves public, read-only data, holds no session and performs no mutation, so each of these would be a lock on a door that does not exist. They are named here rather than silently skipped, because from the outside an omission and an oversight look identical.
+
 ## Testing
 
 The risk in this project is not in rendering, it is in the transformation. A misplaced margin is visible the moment the page loads; a fund KPI aggregated over the wrong set of companies looks perfectly reasonable and is wrong by tens of millions. Tests follow the risk, so the weight sits in `packages/core`.
@@ -135,7 +149,7 @@ Covered so far, 34 tests over the frozen feeds:
 
 **The quarter grid** — it spans the full reporting window found in the feed, fills quarters nobody reported, and returns nothing at all rather than a partial grid when no quarter is readable. Quarter arithmetic is checked across year boundaries in both directions, because an off-by-one there would silently compare the wrong two quarters and every number downstream would still look plausible.
 
-**Company series** — an unreported quarter stays null rather than zero, and `missingQuarters` names exactly the quarters that carried no row (R3). The distinction that matters most has its own test: `co-009` filed a row for `2024-Q3` with a null revenue in it, and that quarter must _not_ appear as missing, because a company that reported without a figure is not the same as a company that stayed silent. `co-021` produces a full-length empty series and a summary of nulls instead of throwing or reporting zero (R9). `co-014`, which has exactly one pricing event, carries that valuation forward eight quarters with the right "as of" label, while its per-quarter series keeps the single event where it happened (R6). A loss passes through as a negative margin, and a margin with no revenue underneath comes back null (R7).
+**Company series** — an unreported quarter stays null rather than zero, and `missingQuarters` names exactly the quarters that carried no row (R3). The distinction that matters most has its own test: `co-009` filed a row for `2024-Q3` with a null revenue in it, and that quarter must _not_ appear as missing, because a company that reported without a figure is not the same as a company that stayed silent. `co-021` produces a full-length empty series and a summary of nulls instead of throwing or reporting zero (R9). `co-014`, which has exactly one pricing event, carries that valuation forward across the seven quarters that follow it, with the right "as of" label, while its per-quarter series keeps the single event where it happened (R6). A loss passes through as a negative margin, and a margin with no revenue underneath comes back null (R7).
 
 **Fund aggregation** — the one figure quoted in millions converts once at the boundary (R8). Coverage counts the companies behind the revenue figure rather than the ones that sent a row, and is asserted to drop from four to three in the quarter `fund-003`'s total drops (R4). A silent company stays in the denominator so the gap remains visible.
 
