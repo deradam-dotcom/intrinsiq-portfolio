@@ -18,7 +18,7 @@ The browser never talks to the vendor. All three feeds are fetched, validated an
 | Linting         | ESLint (flat config) + Prettier | 9.39.5 / 3.9.6 |
 | Tests           | Vitest                          | 4.1.10         |
 
-Layout is plain CSS Modules. A component library appears only where interactive primitives justify it.
+Layout is plain CSS Modules over a shared token file. A component library appears only where interactive primitives justify it.
 
 ## Getting started
 
@@ -52,20 +52,23 @@ pnpm format:check  # Verifies formatting without writing
 
 ```
 apps/web/               Next.js application
-  app/api/              the API layer — the only caller of a vendor URL
-  lib/env.ts            the only reader of the environment, validated once
-  lib/upstream.ts       the only module that touches the network
-  lib/api.ts            shared response shapes: cache header, 404, 502
-  test/                 the API contract, and what it does when the vendor fails
-packages/core/          pure TypeScript domain — no React, no Next, no fetch
-  src/schemas.ts        what the vendor is allowed to send us
-  src/types.ts          what this app serves to its own frontend
-  src/normalize.ts      defects in the raw KPI feed (R1, R2)
-  src/quarters.ts       quarter arithmetic and the canonical grid
-  src/metrics.ts        margin and growth, each with its guard (R7)
-  src/series.ts         one company, expanded onto the grid (R3, R6, R9)
-  src/aggregate.ts      companies rolled up to funds (R4, R5, R8)
-  test/fixtures/        the real feeds, frozen byte-for-byte
+  app/api/              The API layer — the only caller of a vendor URL
+  lib/env.ts            The only reader of the environment, validated once
+  lib/upstream.ts       The only module that touches the network
+  lib/api.ts            Shared response shapes: cache header, 404, 502
+  test/                 The API contract, and what it does when the vendor fails
+packages/ui/            Presentational components — props in, JSX out
+  src/tokens.css        Colour, space, radius, type and motion, in one scale
+  src/AppShell.tsx      Skip link, header, and the single <main> landmark
+packages/core/          Pure TypeScript domain — no React, no Next, no fetch
+  src/schemas.ts        What the vendor is allowed to send us
+  src/types.ts          What this app serves to its own frontend
+  src/normalize.ts      Defects in the raw KPI feed (R1, R2)
+  src/quarters.ts       Quarter arithmetic and the canonical grid
+  src/metrics.ts        Margin and growth, each with its guard (R7)
+  src/series.ts         One company, expanded onto the grid (R3, R6, R9)
+  src/aggregate.ts      Companies rolled up to funds (R4, R5, R8)
+  test/fixtures/        The real feeds, frozen byte-for-byte
 ```
 
 ## Architecture
@@ -130,6 +133,7 @@ The fund grows at a steady 8–11% a quarter. The naive column swings between �
 
 - **`server-only` on `lib/env` and `lib/upstream`.** A Client Component importing either breaks the build instead of shipping it to the browser, and nothing carries a `NEXT_PUBLIC_` prefix. Measured on the production build: the vendor host appears zero times in the client bundle.
 - **`packages/core` gets no such guard** — the trade-off half. Tying it to a Next-specific package would cost the framework independence and the network-free tests it exists for. It stays out of the bundle by the weaker guarantee that nothing on the client imports it.
+- **One token scale, not two.** Colour, spacing, radius, type and motion live in `packages/ui/src/tokens.css`, and the shadcn primitives will be pointed at the same variables — a second scale is how an interface ends up looking assembled rather than designed. Contrast was computed, not eyeballed: every text pair clears WCAG AA at 4.9:1 or better, and a border that carries meaning clears 3:1.
 - **The upstream is untrusted input.** Zod at the boundary and `AbortSignal.timeout()` on every call, so a schema break is a handled `502` rather than an `undefined.map()` five layers deeper.
 - **Errors say only what the client can act on.** The vendor's URL, status and stack trace go to the server log; the 404 does not echo the requested id back.
 - **No format check on `:fundId` and `:companyId`.** A regex would guard nothing — the parameter never reaches a filesystem or an outbound URL — and would reject a valid id the day the vendor ships `fund-A1`. The lookup is the validation.

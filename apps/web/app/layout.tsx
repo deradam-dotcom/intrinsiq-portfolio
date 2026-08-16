@@ -1,5 +1,8 @@
+import AppShell from '@intrinsiq/ui/AppShell'
+import '@intrinsiq/ui/tokens.css'
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
+import Link from 'next/link'
 import './globals.css'
 
 const geistSans = Geist({
@@ -13,14 +16,19 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'INTRINSIQ Portfolio',
+  title: {
+    default: 'INTRINSIQ Portfolio',
+    template: '%s · INTRINSIQ Portfolio',
+  },
   description: 'Fund and portfolio company performance for investment managers.',
 }
 
 const RootLayout = ({ children }: LayoutProps<'/'>) => {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body>{children}</body>
+      <body>
+        <AppShell brand={<Link href="/">Intrinsiq</Link>}>{children}</AppShell>
+      </body>
     </html>
   )
 }

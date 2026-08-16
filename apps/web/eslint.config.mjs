@@ -7,5 +7,6 @@ export default defineConfig([
   ...nextVitals,
   ...nextTs,
   prettier,
+  { languageOptions: { parserOptions: { tsconfigRootDir: import.meta.dirname } } },
   globalIgnores(['.next/**', 'out/**', 'build/**', 'next-env.d.ts']),
 ])

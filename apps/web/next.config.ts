@@ -2,7 +2,7 @@ import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  transpilePackages: ['@intrinsiq/core'],
+  transpilePackages: ['@intrinsiq/core', '@intrinsiq/ui'],
   agentRules: false,
 }
 
