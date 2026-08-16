@@ -38,7 +38,7 @@ pnpm install
 pnpm dev
 ```
 
-**No `.env` file is needed.** A fresh clone runs against the real upstream, because the three feed URLs, the request timeout and the cache window all ship with working defaults. They can still be overridden — `UPSTREAM_FUNDS_URL`, `UPSTREAM_COMPANIES_URL`, `UPSTREAM_KPIS_URL`, `UPSTREAM_TIMEOUT_MS` (`5000`) and `UPSTREAM_REVALIDATE_SECONDS` (`3600`) — which is what makes it possible to point a feed at a local copy. They are validated on startup, so a bad value stops the server naming the offending field instead of turning up later as `undefined` inside a fetch URL.
+**No `.env` file is needed.** A fresh clone runs against the real upstream, because the three feed URLs, the request timeout and the cache window all ship with working defaults. They can still be overridden — `UPSTREAM_FUNDS_URL`, `UPSTREAM_COMPANIES_URL`, `UPSTREAM_KPIS_URL`, `UPSTREAM_TIMEOUT_MS` (`5000`) and `UPSTREAM_REVALIDATE_SECONDS` (`3600`) — which is what makes it possible to point a feed at a local copy. They are validated as the config module loads, so a bad value fails immediately with the offending field named — `UPSTREAM_TIMEOUT_MS=soon` reports exactly that — instead of turning up later as `undefined` inside a fetch URL.
 
 ## Scripts
 
@@ -57,11 +57,15 @@ pnpm format:check  # Verifies formatting without writing
 
 ```
 apps/web/               Next.js application — route handlers and pages
-  app/                  App Router: layouts, pages and the API layer.
+  app/                  App Router: layouts and pages.
+  app/api/              The API layer — the only thing that calls a vendor URL,
+                        and the only contract the pages are allowed to know.
   lib/env.ts            The only module that reads the environment, validated
-                        once so a bad value fails at startup rather than in a URL.
+                        once so a bad value fails loudly rather than inside a URL.
   lib/upstream.ts       The only module that touches the network: fetches the
                         three feeds, validates them, hands them to the domain.
+  lib/api.ts            The response shapes every handler shares — cache header,
+                        404, and the sanitised 502.
 packages/core/          Pure TypeScript domain — no React, no Next, no fetch,
                         which is why it tests fast and without a network.
   src/schemas.ts        Zod schemas for the three upstream feeds, plus the types
@@ -84,6 +88,46 @@ packages/core/          Pure TypeScript domain — no React, no Next, no fetch,
   test/*.test.ts        One file per source module, each named after the rule it
                         defends rather than the function it calls.
 ```
+
+## Architecture
+
+Data moves in one direction, and the vendor's address stops at the server:
+
+```
+page (Server Component)  ──▶  /api/*  route handler
+                                 │
+                                 ├──▶  lib/upstream  ──fetch──▶  private-alpha.github.io
+                                 │     network, env, Zod, cache
+                                 └──▶  packages/core
+                                       pure transformation, no I/O
+```
+
+The three feeds behind that last arrow are `funds.json`, `companies.json` and `kpis.json` under `https://private-alpha.github.io/takehome-seed-data/api/`.
+
+**Network and transformation are separate layers on purpose.** `lib/upstream` knows about URLs, timeouts, caching and schema validation; `packages/core` receives arrays and returns arrays. That split is the whole reason the nine rules below can be tested exhaustively in milliseconds without a network, and it is why `core` holds no React, no Next and no `fetch`.
+
+**The route handlers do no arithmetic.** `buildPortfolio` is a single pure call that turns the three raw feeds into the finished portfolio, and each handler only selects from its result. There is no second implementation of a growth rate living in a handler, which is the usual way two numbers on the same screen start disagreeing.
+
+## API
+
+Three read-only endpoints. Every response is JSON, and every one is assembled from the same `buildPortfolio` result.
+
+| Endpoint                        | Responds with                                                                        |
+| ------------------------------- | ------------------------------------------------------------------------------------ |
+| `GET /api/funds`                | `{ funds: FundSummary[], dataQuality: DataQualityReport }`                           |
+| `GET /api/funds/:fundId`        | `{ fund: FundSummary, companies: CompanySummary[], timeseries: FundQuarterPoint[] }` |
+| `GET /api/companies/:companyId` | `{ company: CompanySummary, series: CompanyQuarterPoint[] }`                         |
+
+The overview endpoint deliberately does **not** carry the 269 KPI rows it was built from — it answers in about 2 kB, because a card that shows a headline figure and a sparkline has no use for a quarterly time series it will never draw. The detail endpoints hand out the series, since that is what a drill-down is.
+
+`dataQuality` rides along on the overview response rather than being logged and forgotten. It reports what the pipeline had to repair — `{ duplicatesResolved: 2, orphanKpiRows: 2, companiesWithoutKpis: 1 }` — and the UI shows it as a footnote. A pipeline that silently discards rows is indistinguishable from one that has a bug.
+
+Errors answer in one shape, `{ error: { code, message } }`, with two codes:
+
+| Status | Code                   | When                                             |
+| ------ | ---------------------- | ------------------------------------------------ |
+| `404`  | `not_found`            | no fund or company is held under that id         |
+| `502`  | `upstream_unavailable` | the vendor answered badly, slowly, or not at all |
 
 ## Data assumptions
 
@@ -134,6 +178,12 @@ Only 96 of 269 rows carry a valuation, scattered irregularly. This is not a defe
 `packages/core` deliberately does **not** get that guard, which is the trade-off half of the decision. It is pure transformation with no I/O, so tying it to a Next-specific package would cost it exactly the framework independence and the fast, network-free tests it exists for. It stays out of the client bundle by the weaker guarantee — nothing on the client imports it — and that is the right price here.
 
 **The upstream is treated as untrusted input, even though it behaves today.** Every feed passes through its Zod schema before the domain sees it, so a vendor that starts sending revenue as a string produces a handled error naming the field rather than an `undefined.map()` five layers deeper. The fixtures are parsed through those same schemas, which is why schema drift fails the test suite as well as the request. Each call also carries `AbortSignal.timeout()`: an upstream that accepts the connection and then goes quiet is the failure mode that hurts most, because without a deadline it holds the request open until something else gives up first.
+
+**An error tells the client what it can act on and nothing else.** When the upstream fails, the caller gets `502 upstream_unavailable` and a fixed sentence; the vendor's URL, its status code and the stack trace go to the server log where they are actually useful. The same reasoning removed the id from the 404 message: echoing `../../etc/passwd` back at whoever sent it is a reflection surface that buys nothing, because the client already knows what it asked for.
+
+**There is no format check on `:fundId` and `:companyId`, and that is deliberate.** A regex like `^(fund|co)-\d+$` would look like validation while guarding nothing — the parameter never reaches a filesystem, an outbound URL or a query, it is only compared against ids already in memory. What such a pattern would reliably do is reject a valid id the day the vendor ships `fund-A1`. The lookup is the validation: no match, `404`.
+
+**Freshness is configured in one place, not three.** `lib/upstream` passes `next: { revalidate }` on each feed, so Next's Data Cache holds the vendor payload; the handlers add a matching `Cache-Control` so a shared cache can hold the assembled response. What is deliberately absent is a per-route `revalidate` segment export: it has to be a static literal, so it could not follow `UPSTREAM_REVALIDATE_SECONDS` and would silently disagree with the other two the moment anyone changed it.
 
 **Deliberately left out: rate limiting, auth, CSRF tokens, secret rotation.** This app serves public, read-only data, holds no session and performs no mutation, so each of these would be a lock on a door that does not exist. They are named here rather than silently skipped, because from the outside an omission and an oversight look identical.
 
