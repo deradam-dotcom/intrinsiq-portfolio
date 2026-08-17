@@ -52,7 +52,10 @@ pnpm format:check  # Verifies formatting without writing
 
 ```
 apps/web/               Next.js application
+  app/page.tsx          The fund overview, a Server Component
+  app/FundCard.tsx      One fund as a card — knows the app's routes, so it lives here
   app/api/              The API layer — the only caller of a vendor URL
+  lib/portfolio.ts      What the pages read, over the app's own HTTP API
   lib/env.ts            The only reader of the environment, validated once
   lib/upstream.ts       The only module that touches the network
   lib/api.ts            Shared response shapes: cache header, 404, 502
@@ -60,6 +63,9 @@ apps/web/               Next.js application
 packages/ui/            Presentational components — props in, JSX out
   src/tokens.css        Colour, space, radius, type and motion, in one scale
   src/AppShell.tsx      Skip link, header, and the single <main> landmark
+  src/Sparkline.tsx     Hand-written SVG; a gap breaks the line rather than
+                        being drawn through
+  src/format.ts         Absolute USD read back in millions, rates always signed
 packages/core/          Pure TypeScript domain — no React, no Next, no fetch
   src/schemas.ts        What the vendor is allowed to send us
   src/types.ts          What this app serves to its own frontend
@@ -94,7 +100,7 @@ The feeds are `funds.json`, `companies.json` and `kpis.json` under `https://priv
 
 Errors answer as `{ error: { code, message } }` — `404 not_found`, or `502 upstream_unavailable` when the vendor answers badly, slowly, or not at all.
 
-The overview carries no quarterly rows and answers in about 2 kB; the detail endpoints hand out the series. `dataQuality` rides along on it, because a pipeline that silently discards rows is indistinguishable from one that has a bug.
+The overview carries each fund's **aggregated** twelve-quarter series and the names of the companies in it — about 10 kB in total — but none of the 269 company KPI rows those figures were built from. That is the line: a card draws a sparkline and lists its holdings, so it needs both; it never needs a company's quarterly filings, which is what the detail endpoints are for. `dataQuality` rides along on the overview, because a pipeline that silently discards rows is indistinguishable from one that has a bug.
 
 ## Data assumptions
 
@@ -134,6 +140,7 @@ The fund grows at a steady 8–11% a quarter. The naive column swings between �
 - **`server-only` on `lib/env` and `lib/upstream`.** A Client Component importing either breaks the build instead of shipping it to the browser, and nothing carries a `NEXT_PUBLIC_` prefix. Measured on the production build: the vendor host appears zero times in the client bundle.
 - **`packages/core` gets no such guard** — the trade-off half. Tying it to a Next-specific package would cost the framework independence and the network-free tests it exists for. It stays out of the bundle by the weaker guarantee that nothing on the client imports it.
 - **One token scale, not two.** Colour, spacing, radius, type and motion live in `packages/ui/src/tokens.css`, and the shadcn primitives will be pointed at the same variables — a second scale is how an interface ends up looking assembled rather than designed. Contrast was computed, not eyeballed: every text pair clears WCAG AA at 4.9:1 or better, and a border that carries meaning clears 3:1.
+- **The sparkline is hand-written SVG, not a chart library.** The saving is not the ~100 kB: Recharts requires `'use client'`, which would turn the fund card — and every value it renders — into client JavaScript instead of server-rendered HTML. Inline SVG is markup, so the overview page stays entirely a Server Component. A charting library appears on the fund detail page, where axes, tooltips and two series earn it.
 - **The upstream is untrusted input.** Zod at the boundary and `AbortSignal.timeout()` on every call, so a schema break is a handled `502` rather than an `undefined.map()` five layers deeper.
 - **Errors say only what the client can act on.** The vendor's URL, status and stack trace go to the server log; the 404 does not echo the requested id back.
 - **No format check on `:fundId` and `:companyId`.** A regex would guard nothing — the parameter never reaches a filesystem or an outbound URL — and would reject a valid id the day the vendor ships `fund-A1`. The lookup is the validation.
@@ -147,5 +154,9 @@ The risk is in the transformation, not the rendering. A misplaced margin is visi
 **Domain — 34 tests over frozen, complete copies of the real feeds.** Complete rather than trimmed, because hand-picking rows is how a fixture quietly stops resembling its source. The cases are chosen so that passing cannot be a coincidence: both duplicates, since `co-014` is restated upwards and `co-023` downwards, which separates "last wins" from "largest wins"; `co-009`'s null revenue, which must count as reported but not towards coverage; like-for-like growth asserted against sums written out by hand, with a second test proving an excluded company leaves the base as well as the numerator. Both headline rules were mutation-checked — inverting coverage fails two tests, removing the like-for-like filter fails three.
 
 **API — 17 tests against a stubbed vendor.** Not the fixtures: the arithmetic is already proved, what is unproved here is the contract. A `500`, a schema break and a silent hang all become the same `502`, and two tests pin down what that response may contain — the body must not hold the vendor's host, status or a stack frame, while the log must hold all three. Leak and swallow are opposite mistakes.
+
+**Presentation — 16 tests.** The pure parts carry the weight: the sparkline's coordinate maths is asserted directly, including that a gap ends one run and starts another rather than being drawn through, and that a lone reported quarter survives as its own run. Formatting is checked because a figure the domain keeps in absolute USD has to read back as `$102.0M`, and a missing one as an em dash rather than a zero.
+
+The fund card is queried by role, not by test id, so the test fails if the heading stops being a heading. Three behaviours are pinned: the growth direction is announced in words and not only by a glyph and a colour; the coverage warning appears in prose when the headline rests on fewer companies than the fund holds, and stays silent when it does not; and the warning describes the quarter the headline came from, not whichever quarter sits last on the grid. `axe-core` runs over the rendered card and finds nothing — though not colour contrast, which needs a real canvas, so those ratios were computed separately.
 
 **Not covered, deliberately.** No chart-path assertions and no end-to-end suite. Rendering defects announce themselves on load; wrong aggregates do not.

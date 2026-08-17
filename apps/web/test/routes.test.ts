@@ -22,7 +22,7 @@ afterEach(() => {
 })
 
 describe('the fund overview endpoint', () => {
-  it('answers with one summary per fund and no quarterly rows at all', async () => {
+  it('answers with a summary, a company roster and a fund-level series per fund', async () => {
     const { funds } = await overview()
 
     expect(funds.map((fund: { id: string }) => fund.id)).toEqual(['fund-001', 'fund-002'])
@@ -39,6 +39,17 @@ describe('the fund overview endpoint', () => {
       'revenueGrowthYoy',
       'ebitdaMargin',
       'portfolioValuation',
+      'companies',
+      'timeseries',
+    ])
+  })
+
+  it('names the companies in each fund without shipping their quarterly rows', async () => {
+    const { funds } = await overview()
+
+    expect(funds[0].companies).toEqual([
+      { id: 'co-001', name: 'Halcyon Robotics' },
+      { id: 'co-002', name: 'Meridian Health' },
     ])
   })
 
