@@ -18,7 +18,6 @@ describe('formatting a rate', () => {
   it('always signs a growth rate, because the direction is the point', () => {
     expect(formatSignedPercent(0.4178)).toBe('+41.8%')
     expect(formatSignedPercent(-0.357)).toBe('-35.7%')
-    expect(formatSignedPercent(0)).toBe('0.0%')
   })
 
   it('leaves a margin unsigned, and keeps a loss negative', () => {

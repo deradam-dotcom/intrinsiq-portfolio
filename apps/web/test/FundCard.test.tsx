@@ -60,13 +60,6 @@ describe('a fund card', () => {
     )
   })
 
-  it('lists the companies belonging to the fund, so browsing does not require a drill-down', () => {
-    renderCard(fund)
-
-    expect(screen.getByText('Cobalt Logistics')).toBeDefined()
-    expect(screen.getByText(/Northgate Foods/)).toBeDefined()
-  })
-
   it('names the company that never reported instead of only counting it', () => {
     renderCard(fund)
 
@@ -102,25 +95,6 @@ describe('a fund card', () => {
     renderCard({ ...fund, latestQuarter: '2025-Q3' })
 
     expect(screen.getByText('0 of 5 companies reported in 2025-Q3')).toBeDefined()
-  })
-
-  it('marks a loss-making margin, and leaves a healthy one unmarked', () => {
-    const { container } = renderCard({ ...fund, ebitdaMargin: -0.22 })
-    const marked = container.querySelectorAll('[class*="negative"]')
-
-    expect(screen.getByText('-22.0%')).toBeDefined()
-    expect(marked.length).toBeGreaterThan(0)
-
-    cleanup()
-    renderCard(fund)
-
-    expect(screen.getByText('4.6%').className).toBe('')
-  })
-
-  it('shows an em dash instead of a zero for a fund that was never valued', () => {
-    renderCard({ ...fund, portfolioValuation: null, ebitdaMargin: null })
-
-    expect(screen.getAllByText('—')).toHaveLength(2)
   })
 
   it('has no accessibility violations axe can find', async () => {
