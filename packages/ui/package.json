@@ -4,9 +4,14 @@
   "private": true,
   "type": "module",
   "exports": {
-    "./tokens.css": "./src/tokens.css",
-    "./format": "./src/format.ts",
-    "./*": "./src/*.tsx"
+    "./tokens.css": "./src/styles/tokens.css",
+    "./format": "./src/lib/format.ts",
+    "./App": "./src/layouts/App.tsx",
+    "./*": "./src/components/*.tsx"
+  },
+  "imports": {
+    "#layouts/*": "./src/layouts/*.tsx",
+    "#lib/*": "./src/lib/*.ts"
   },
   "scripts": {
     "lint": "eslint --max-warnings 0",

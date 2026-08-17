@@ -10,7 +10,7 @@
 .summary {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
-  gap: var(--space-1);
+  gap: 1px;
   margin-top: var(--space-8);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
@@ -20,13 +20,62 @@
 }
 
 .summary > div {
+  min-width: 0;
   padding: var(--space-4) var(--space-6);
   background: var(--color-surface);
 }
 
 .summary dt {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
   color: var(--color-text-muted);
   font-size: var(--text-sm);
+}
+
+.summary dt svg {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex-shrink: 0;
+  opacity: 0.75;
+}
+
+.flagged dt,
+.flagged dd {
+  color: var(--color-caution);
+}
+
+.flagged dt svg {
+  opacity: 1;
+}
+
+.summary dd.withNames {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.names {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  min-width: 0;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.name {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.more {
+  flex: none;
+  white-space: nowrap;
+  opacity: 0.8;
 }
 
 .summary dd {

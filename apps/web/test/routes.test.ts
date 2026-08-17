@@ -48,8 +48,8 @@ describe('the fund overview endpoint', () => {
     const { funds } = await overview()
 
     expect(funds[0].companies).toEqual([
-      { id: 'co-001', name: 'Halcyon Robotics' },
-      { id: 'co-002', name: 'Meridian Health' },
+      { id: 'co-001', name: 'Halcyon Robotics', latestQuarter: '2024-Q2' },
+      { id: 'co-002', name: 'Meridian Health', latestQuarter: '2024-Q2' },
     ])
   })
 
@@ -67,6 +67,14 @@ describe('the fund overview endpoint', () => {
       orphanKpiRows: 1,
       companiesWithoutKpis: 1,
     })
+  })
+
+  it('says which company never reported, rather than only how many', async () => {
+    const { funds } = await overview()
+
+    expect(funds[1].companies).toEqual([
+      { id: 'co-003', name: 'Surge Technologies', latestQuarter: null },
+    ])
   })
 
   it('states its cache intent rather than inheriting a default', async () => {

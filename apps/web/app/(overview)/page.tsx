@@ -1,5 +1,6 @@
-import FundCard from '@/app/FundCard'
-import styles from '@/app/page.module.css'
+import FundCard from './_components/FundCard'
+import Icon from '@intrinsiq/ui/Icon'
+import styles from './page.module.css'
 import { getFunds } from '@/lib/portfolio'
 import { formatCount, formatMillions } from '@intrinsiq/ui/format'
 
@@ -14,6 +15,9 @@ const HomePage = async () => {
   const latestQuarter = funds
     .map((fund) => fund.latestQuarter)
     .filter((quarter) => quarter !== null)
+  const silent = funds.flatMap((fund) =>
+    fund.companies.filter((company) => company.latestQuarter === null),
+  )
 
   return (
     <>
@@ -24,33 +28,52 @@ const HomePage = async () => {
           quarter with missing filings does not read as a collapse.
         </p>
       </header>
-
       <dl className={styles.summary}>
         <div>
-          <dt>Funds</dt>
+          <dt>
+            <Icon name="funds" />
+            Funds
+          </dt>
           <dd>{formatCount(funds.length)}</dd>
         </div>
         <div>
-          <dt>Portfolio companies</dt>
+          <dt>
+            <Icon name="companies" />
+            Portfolio companies
+          </dt>
           <dd>{formatCount(companyCount)}</dd>
         </div>
         <div>
-          <dt>Revenue in {latestQuarter.at(-1) ?? 'the latest quarter'}</dt>
+          <dt>
+            <Icon name="revenue" />
+            Revenue in {latestQuarter.at(-1) ?? 'the latest quarter'}
+          </dt>
           <dd>{formatMillions(latestRevenue)}</dd>
         </div>
-        <div>
-          <dt>Companies not reporting</dt>
-          <dd>{formatCount(dataQuality.companiesWithoutKpis)}</dd>
+        <div className={dataQuality.companiesWithoutKpis > 0 ? styles.flagged : undefined}>
+          <dt>
+            <Icon name="gap" />
+            Companies not reporting
+          </dt>
+          <dd className={styles.withNames}>
+            {formatCount(dataQuality.companiesWithoutKpis)}
+            {silent.length === 0 ? null : (
+              <span className={styles.names}>
+                <span className={styles.name}>{silent[0]?.name}</span>
+                {silent.length === 1 ? null : (
+                  <span className={styles.more}>+{silent.length - 1} more</span>
+                )}
+              </span>
+            )}
+          </dd>
         </div>
       </dl>
-
       <h2 className={styles.listHeading}>Funds</h2>
       <ul className={styles.grid}>
         {funds.map((fund) => (
           <FundCard fund={fund} key={fund.id} />
         ))}
       </ul>
-
       <p className={styles.footnote}>
         The pipeline resolved {dataQuality.duplicatesResolved} restated quarters and dropped{' '}
         {dataQuality.orphanKpiRows} KPI rows belonging to companies that are not in the portfolio.

@@ -1,5 +1,5 @@
 import styles from './Sparkline.module.css'
-import { toSparklineRuns } from './sparkline'
+import { toSparklineRuns } from '#lib/plot'
 
 type SparklineProps = {
   values: readonly (number | null)[]

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { formatMillions, formatPercent, formatSignedPercent, notReported } from '../src/format'
+import { formatMillions, formatPercent, formatSignedPercent, notReported } from '#lib/format'
 
 describe('formatting a figure the domain keeps in absolute USD', () => {
   it('reads it back in millions, which is how a manager talks about it', () => {

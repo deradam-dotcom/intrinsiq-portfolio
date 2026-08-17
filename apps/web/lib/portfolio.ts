@@ -3,7 +3,7 @@ import type { DataQualityReport, FundQuarterPoint, FundSummary } from '@intrinsi
 import { headers } from 'next/headers'
 
 export type FundListing = FundSummary & {
-  companies: { id: string; name: string }[]
+  companies: { id: string; name: string; latestQuarter: string | null }[]
   timeseries: FundQuarterPoint[]
 }
 

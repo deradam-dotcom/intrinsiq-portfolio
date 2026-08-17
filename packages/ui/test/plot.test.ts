@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { toSparklineRuns } from '../src/sparkline'
+import { toSparklineRuns } from '#lib/plot'
 
 describe('toSparklineRuns', () => {
   it('spreads the reported quarters across the full width and inverts the y axis', () => {

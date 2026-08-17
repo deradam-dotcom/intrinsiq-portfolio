@@ -11,6 +11,7 @@ export const GET = async () => {
         companies: fund.companies.map((company) => ({
           id: company.summary.id,
           name: company.summary.name,
+          latestQuarter: company.summary.latestQuarter,
         })),
         timeseries: fund.timeseries,
       })),

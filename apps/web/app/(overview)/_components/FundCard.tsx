@@ -24,6 +24,8 @@ const statusLabels: Record<FundListing['status'], string> = {
   post_investment: 'Post-investment',
 }
 
+const isLoss = (value: number | null) => value !== null && value < 0
+
 const growthDirection = (growth: number | null) => {
   if (growth === null) {
     return { glyph: '', label: '', tone: styles.flat }
@@ -50,7 +52,6 @@ const FundCard = ({ fund }: FundCardProps) => {
             {statusLabels[fund.status]}
           </p>
         </div>
-
         <dl className={styles.metrics}>
           <div>
             <dt>Latest revenue</dt>
@@ -63,7 +64,9 @@ const FundCard = ({ fund }: FundCardProps) => {
           </div>
           <div>
             <dt>EBITDA margin</dt>
-            <dd>{formatPercent(fund.ebitdaMargin)}</dd>
+            <dd className={isLoss(fund.ebitdaMargin) ? styles.negative : undefined}>
+              {formatPercent(fund.ebitdaMargin)}
+            </dd>
           </div>
           <div>
             <dt>Portfolio valuation</dt>
@@ -78,16 +81,13 @@ const FundCard = ({ fund }: FundCardProps) => {
             <dd>{formatMillions(fund.targetSizeUsd)}</dd>
           </div>
         </dl>
-
         <Sparkline values={fund.timeseries.map((point) => point.revenue)} />
-
         {latest === undefined || latest.reportingCompanies === latest.totalCompanies ? null : (
           <p className={styles.coverage}>
             {latest.reportingCompanies} of {latest.totalCompanies} companies reported in{' '}
             {latest.quarter}
           </p>
         )}
-
         <div className={styles.roster}>
           <h3 className={styles.rosterHeading}>
             {fund.companies.length} portfolio{' '}
@@ -95,7 +95,12 @@ const FundCard = ({ fund }: FundCardProps) => {
           </h3>
           <ul>
             {fund.companies.map((company) => (
-              <li key={company.id}>{company.name}</li>
+              <li
+                className={company.latestQuarter === null ? styles.silent : undefined}
+                key={company.id}
+              >
+                {company.latestQuarter === null ? `${company.name} · not reporting` : company.name}
+              </li>
             ))}
           </ul>
         </div>

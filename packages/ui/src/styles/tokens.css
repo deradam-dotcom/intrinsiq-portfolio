@@ -50,6 +50,12 @@
   --layout-max: 76rem;
 }
 
+@media (min-width: 1920px) {
+  :root {
+    --layout-max: 105rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   :root {
     --duration-fast: 1ms;

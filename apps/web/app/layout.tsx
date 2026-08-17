@@ -1,4 +1,4 @@
-import AppShell from '@intrinsiq/ui/AppShell'
+import App from '@intrinsiq/ui/App'
 import '@intrinsiq/ui/tokens.css'
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
@@ -27,7 +27,7 @@ const RootLayout = ({ children }: LayoutProps<'/'>) => {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
-        <AppShell brand={<Link href="/">Intrinsiq</Link>}>{children}</AppShell>
+        <App brand={<Link href="/">Intrinsiq</Link>}>{children}</App>
       </body>
     </html>
   )

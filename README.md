@@ -51,31 +51,45 @@ pnpm format:check  # Verifies formatting without writing
 ## Project structure
 
 ```
-apps/web/               Next.js application
-  app/page.tsx          The fund overview, a Server Component
-  app/FundCard.tsx      One fund as a card — knows the app's routes, so it lives here
-  app/api/              The API layer — the only caller of a vendor URL
-  lib/portfolio.ts      What the pages read, over the app's own HTTP API
-  lib/env.ts            The only reader of the environment, validated once
-  lib/upstream.ts       The only module that touches the network
-  lib/api.ts            Shared response shapes: cache header, 404, 502
-  test/                 The API contract, and what it does when the vendor fails
-packages/ui/            Presentational components — props in, JSX out
-  src/tokens.css        Colour, space, radius, type and motion, in one scale
-  src/AppShell.tsx      Skip link, header, and the single <main> landmark
-  src/Sparkline.tsx     Hand-written SVG; a gap breaks the line rather than
-                        being drawn through
-  src/format.ts         Absolute USD read back in millions, rates always signed
-packages/core/          Pure TypeScript domain — no React, no Next, no fetch
-  src/schemas.ts        What the vendor is allowed to send us
-  src/types.ts          What this app serves to its own frontend
-  src/normalize.ts      Defects in the raw KPI feed (R1, R2)
-  src/quarters.ts       Quarter arithmetic and the canonical grid
-  src/metrics.ts        Margin and growth, each with its guard (R7)
-  src/series.ts         One company, expanded onto the grid (R3, R6, R9)
-  src/aggregate.ts      Companies rolled up to funds (R4, R5, R8)
-  test/fixtures/        The real feeds, frozen byte-for-byte
+intrinsiq-portfolio/
+├── apps/web/                     Next.js application
+│   ├── app/
+│   │   ├── layout.tsx            App-level only: fonts, metadata, the frame
+│   │   ├── globals.css           The reset, over the tokens the ui package ships
+│   │   ├── (overview)/           The `/` route; the parentheses keep it out of the URL
+│   │   │   ├── page.tsx          The fund overview, a Server Component
+│   │   │   └── _components/      Underscore: route-local, never a URL segment
+│   │   │       └── FundCard.tsx  One fund as a card; it builds `/funds/:id`
+│   │   └── api/                  The API layer — the only caller of a vendor URL
+│   ├── lib/
+│   │   ├── env.ts                The only reader of the environment, validated once
+│   │   ├── upstream.ts           The only module that touches the network
+│   │   ├── portfolio.ts          What the pages read, over the app's own HTTP API
+│   │   └── api.ts                Shared response shapes: cache header, 404, 502
+│   └── test/                     The API contract, and the vendor failing
+├── packages/ui/                  Presentational only — props in, JSX out
+│   ├── src/components/           Where `./*` resolves — the public surface
+│   │   ├── Sparkline.tsx         Hand-written SVG; a gap breaks the line
+│   │   └── Icon.tsx              Monochrome glyphs, coloured by their holder
+│   ├── src/layouts/              Only `App` is exported, so the chrome stays paired
+│   │   ├── App.tsx               Skip link, the one <main>, footer pinned bottom
+│   │   ├── Navbar.tsx            Sticky bar carrying the brand
+│   │   └── Footer.tsx            The copyright line, and nothing else
+│   ├── src/styles/tokens.css     Colour, space, radius, type and motion, one scale
+│   ├── src/lib/                  Pure functions: sparkline geometry, formatting
+│   └── src/types/                Ambient declarations, nothing importable
+└── packages/core/                Pure TypeScript domain — no React, no Next, no fetch
+    ├── src/schemas.ts            What the vendor is allowed to send us
+    ├── src/types.ts              What this app serves to its own frontend
+    ├── src/normalize.ts          Defects in the raw KPI feed (R1, R2)
+    ├── src/quarters.ts           Quarter arithmetic and the canonical grid
+    ├── src/metrics.ts            Margin and growth, each with its guard (R7)
+    ├── src/series.ts             One company, expanded onto the grid (R3, R6, R9)
+    ├── src/aggregate.ts          Companies rolled up to funds (R4, R5, R8)
+    └── test/fixtures/            The real feeds, frozen byte-for-byte
 ```
+
+The three "only" lines above are the monorepo's justification: `core` holds no I/O so it tests without a network, `ui` holds no domain so it cannot drift from the data, and one module in `web` owns the network so the boundary is enforceable.
 
 ## Architecture
 
@@ -139,7 +153,7 @@ The fund grows at a steady 8–11% a quarter. The naive column swings between �
 
 - **`server-only` on `lib/env` and `lib/upstream`.** A Client Component importing either breaks the build instead of shipping it to the browser, and nothing carries a `NEXT_PUBLIC_` prefix. Measured on the production build: the vendor host appears zero times in the client bundle.
 - **`packages/core` gets no such guard** — the trade-off half. Tying it to a Next-specific package would cost the framework independence and the network-free tests it exists for. It stays out of the bundle by the weaker guarantee that nothing on the client imports it.
-- **One token scale, not two.** Colour, spacing, radius, type and motion live in `packages/ui/src/tokens.css`, and the shadcn primitives will be pointed at the same variables — a second scale is how an interface ends up looking assembled rather than designed. Contrast was computed, not eyeballed: every text pair clears WCAG AA at 4.9:1 or better, and a border that carries meaning clears 3:1.
+- **One token scale, not two.** Colour, spacing, radius, type and motion live in `packages/ui/src/styles/tokens.css`, and the shadcn primitives will be pointed at the same variables — a second scale is how an interface ends up looking assembled rather than designed. Contrast was computed, not eyeballed: every text pair clears WCAG AA at 4.9:1 or better, and a border that carries meaning clears 3:1.
 - **The sparkline is hand-written SVG, not a chart library.** The saving is not the ~100 kB: Recharts requires `'use client'`, which would turn the fund card — and every value it renders — into client JavaScript instead of server-rendered HTML. Inline SVG is markup, so the overview page stays entirely a Server Component. A charting library appears on the fund detail page, where axes, tooltips and two series earn it.
 - **The upstream is untrusted input.** Zod at the boundary and `AbortSignal.timeout()` on every call, so a schema break is a handled `502` rather than an `undefined.map()` five layers deeper.
 - **Errors say only what the client can act on.** The vendor's URL, status and stack trace go to the server log; the 404 does not echo the requested id back.

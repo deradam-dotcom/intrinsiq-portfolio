@@ -1,4 +1,4 @@
-import FundCard from '@/app/FundCard'
+import FundCard from '@/app/(overview)/_components/FundCard'
 import type { FundListing } from '@/lib/portfolio'
 import { cleanup, render, screen } from '@testing-library/react'
 import axe from 'axe-core'
@@ -18,8 +18,8 @@ const fund: FundListing = {
   ebitdaMargin: 0.0464,
   portfolioValuation: { value: 4_724_601_469, asOf: '2025-Q4' },
   companies: [
-    { id: 'co-008', name: 'Cobalt Logistics' },
-    { id: 'co-009', name: 'Northgate Foods' },
+    { id: 'co-008', name: 'Cobalt Logistics', latestQuarter: '2025-Q4' },
+    { id: 'co-009', name: 'Northgate Foods', latestQuarter: null },
   ],
   timeseries: [
     {
@@ -64,7 +64,14 @@ describe('a fund card', () => {
     renderCard(fund)
 
     expect(screen.getByText('Cobalt Logistics')).toBeDefined()
-    expect(screen.getByText('Northgate Foods')).toBeDefined()
+    expect(screen.getByText(/Northgate Foods/)).toBeDefined()
+  })
+
+  it('names the company that never reported instead of only counting it', () => {
+    renderCard(fund)
+
+    expect(screen.getByText('Northgate Foods · not reporting')).toBeDefined()
+    expect(screen.getByText('Cobalt Logistics')).toBeDefined()
   })
 
   it('says the direction of growth in words, not only with a glyph and a colour', () => {
@@ -95,6 +102,19 @@ describe('a fund card', () => {
     renderCard({ ...fund, latestQuarter: '2025-Q3' })
 
     expect(screen.getByText('0 of 5 companies reported in 2025-Q3')).toBeDefined()
+  })
+
+  it('marks a loss-making margin, and leaves a healthy one unmarked', () => {
+    const { container } = renderCard({ ...fund, ebitdaMargin: -0.22 })
+    const marked = container.querySelectorAll('[class*="negative"]')
+
+    expect(screen.getByText('-22.0%')).toBeDefined()
+    expect(marked.length).toBeGreaterThan(0)
+
+    cleanup()
+    renderCard(fund)
+
+    expect(screen.getByText('4.6%').className).toBe('')
   })
 
   it('shows an em dash instead of a zero for a fund that was never valued', () => {
