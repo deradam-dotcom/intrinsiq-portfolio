@@ -1,4 +1,13 @@
-type IconName = 'funds' | 'companies' | 'revenue' | 'gap' | 'chevron' | 'check'
+type IconName =
+  | 'funds'
+  | 'companies'
+  | 'revenue'
+  | 'gap'
+  | 'margin'
+  | 'valuation'
+  | 'target'
+  | 'chevron'
+  | 'check'
 
 type IconProps = {
   name: IconName
@@ -14,6 +23,17 @@ const paths: Record<IconName, string[]> = {
   ],
   revenue: ['M3 17l6-6 4 4 8-8', 'M17 7h4v4'],
   gap: ['M12 4 2.5 20h19z', 'M12 10v4', 'M12 17h.01'],
+  margin: [
+    'M19 5 5 19',
+    'M4 6.5a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0-5 0',
+    'M15 17.5a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0-5 0',
+  ],
+  valuation: ['M12 3 21 9l-9 12L3 9Z', 'M3 9h18', 'M12 3 9 9l3 12', 'M12 3l3 6-3 12'],
+  target: [
+    'M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0',
+    'M7 12a5 5 0 1 0 10 0a5 5 0 1 0-10 0',
+    'M12 12h.01',
+  ],
   chevron: ['m6 9 6 6 6-6'],
   check: ['m4 12 5 5 11-11'],
 }

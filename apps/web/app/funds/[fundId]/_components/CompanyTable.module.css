@@ -1,0 +1,63 @@
+.scroller {
+  overflow-x: auto;
+  margin-top: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+
+.table {
+  width: 100%;
+  font-size: var(--text-sm);
+}
+
+.caption {
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  text-align: left;
+}
+
+.table th,
+.table td {
+  padding: var(--space-3) var(--space-6);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.table thead th {
+  border-bottom: 1px solid var(--color-border-strong);
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.table tbody tr + tr th,
+.table tbody tr + tr td {
+  border-top: 1px solid var(--color-border);
+}
+
+.table tbody th {
+  font-weight: 600;
+}
+
+.table tbody tr:hover th,
+.table tbody tr:hover td {
+  background: var(--color-surface-subtle);
+}
+
+.numeric {
+  text-align: right;
+}
+
+.positive {
+  color: var(--color-positive);
+}
+
+.negative {
+  color: var(--color-negative);
+}
+
+.silent th,
+.silent td {
+  color: var(--color-caution);
+}

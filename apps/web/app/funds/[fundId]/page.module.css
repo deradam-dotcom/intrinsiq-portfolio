@@ -1,0 +1,67 @@
+.intro {
+  margin-top: var(--space-4);
+}
+
+.meta {
+  margin-top: var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: 1px;
+  margin-top: var(--space-8);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-border);
+  font-variant-numeric: tabular-nums;
+}
+
+.kpis > div {
+  min-width: 0;
+  padding: var(--space-4) var(--space-6);
+  background: var(--color-surface);
+}
+
+.kpis dt {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.kpis dt svg {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex-shrink: 0;
+  opacity: 0.75;
+}
+
+.kpis dd {
+  margin-top: var(--space-1);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.kpis dd.sub {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--color-text-muted);
+}
+
+.sectionHeading {
+  margin-top: var(--space-12);
+}
+
+.note {
+  margin-top: var(--space-2);
+  max-width: 46rem;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}

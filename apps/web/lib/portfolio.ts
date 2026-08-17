@@ -1,9 +1,20 @@
 import 'server-only'
-import type { DataQualityReport, FundQuarterPoint, FundSummary } from '@intrinsiq/core'
+import type {
+  CompanySummary,
+  DataQualityReport,
+  FundQuarterPoint,
+  FundSummary,
+} from '@intrinsiq/core'
 import { headers } from 'next/headers'
 
 export type FundListing = FundSummary & {
   companies: { id: string; name: string; latestQuarter: string | null }[]
+  timeseries: FundQuarterPoint[]
+}
+
+export type FundDetail = {
+  fund: FundSummary
+  companies: CompanySummary[]
   timeseries: FundQuarterPoint[]
 }
 
@@ -50,6 +61,20 @@ export const sortFunds = (funds: readonly FundListing[], sort: string): FundList
 
 export const getFunds = async (): Promise<FundsResponse> => {
   const response = await fetch(await toAbsolute('/api/funds'))
+
+  if (!response.ok) {
+    throw new Error(`The portfolio API answered ${response.status}.`)
+  }
+
+  return response.json()
+}
+
+export const getFund = async (fundId: string): Promise<FundDetail | null> => {
+  const response = await fetch(await toAbsolute(`/api/funds/${encodeURIComponent(fundId)}`))
+
+  if (response.status === 404) {
+    return null
+  }
 
   if (!response.ok) {
     throw new Error(`The portfolio API answered ${response.status}.`)
