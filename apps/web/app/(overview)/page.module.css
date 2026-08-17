@@ -101,3 +101,12 @@
   color: var(--color-text-muted);
   font-size: var(--text-sm);
 }
+
+.empty {
+  margin-top: var(--space-8);
+  padding: var(--space-8);
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  color: var(--color-text-muted);
+  text-align: center;
+}

@@ -6,10 +6,13 @@
   "exports": {
     "./tokens.css": "./src/styles/tokens.css",
     "./format": "./src/lib/format.ts",
+    "./cn": "./src/lib/cn.ts",
     "./App": "./src/layouts/App.tsx",
+    "./primitives/*": "./src/primitives/*.tsx",
     "./*": "./src/components/*.tsx"
   },
   "imports": {
+    "#components/*": "./src/components/*.tsx",
     "#layouts/*": "./src/layouts/*.tsx",
     "#lib/*": "./src/lib/*.ts"
   },
@@ -28,5 +31,8 @@
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.67.0",
     "vitest": "^4.1.10"
+  },
+  "dependencies": {
+    "@radix-ui/react-select": "^2.3.7"
   }
 }

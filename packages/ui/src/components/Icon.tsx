@@ -1,4 +1,4 @@
-type IconName = 'funds' | 'companies' | 'revenue' | 'gap'
+type IconName = 'funds' | 'companies' | 'revenue' | 'gap' | 'chevron' | 'check'
 
 type IconProps = {
   name: IconName
@@ -14,6 +14,8 @@ const paths: Record<IconName, string[]> = {
   ],
   revenue: ['M3 17l6-6 4 4 8-8', 'M17 7h4v4'],
   gap: ['M12 4 2.5 20h19z', 'M12 10v4', 'M12 17h.01'],
+  chevron: ['m6 9 6 6 6-6'],
+  check: ['m4 12 5 5 11-11'],
 }
 
 const Icon = ({ name }: IconProps) => (

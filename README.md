@@ -6,19 +6,20 @@ The browser never talks to the vendor. All three feeds are fetched, validated an
 
 ## Tech stack
 
-| Layer           | Choice                          | Version        |
-| --------------- | ------------------------------- | -------------- |
-| Runtime         | Node.js (LTS "Krypton")         | 24.19.0        |
-| Package manager | pnpm, pinned via Corepack       | 11.21.0        |
-| Monorepo        | Turborepo + pnpm workspaces     | 2.10.9         |
-| Framework       | Next.js (App Router)            | 16.3.0         |
-| UI runtime      | React                           | 19.2.8         |
-| Language        | TypeScript, `strict`            | 6.0.3          |
-| Validation      | Zod, at the upstream boundary   | 4.4.3          |
-| Linting         | ESLint (flat config) + Prettier | 9.39.5 / 3.9.6 |
-| Tests           | Vitest                          | 4.1.10         |
+| Layer           | Choice                            | Version        |
+| --------------- | --------------------------------- | -------------- |
+| Runtime         | Node.js (LTS "Krypton")           | 24.19.0        |
+| Package manager | pnpm, pinned via Corepack         | 11.21.0        |
+| Monorepo        | Turborepo + pnpm workspaces       | 2.10.9         |
+| Framework       | Next.js (App Router)              | 16.3.0         |
+| UI runtime      | React                             | 19.2.8         |
+| Language        | TypeScript, `strict`              | 6.0.3          |
+| Validation      | Zod, at the upstream boundary     | 4.4.3          |
+| Linting         | ESLint (flat config) + Prettier   | 9.39.5 / 3.9.6 |
+| Tests           | Vitest                            | 4.1.10         |
+| Interactive     | Radix UI, styled with CSS Modules | 2.3.7          |
 
-Layout is plain CSS Modules over a shared token file. A component library appears only where interactive primitives justify it.
+Layout is plain CSS Modules over a shared token file. A component library appears only where a primitive earns it — so far, one select.
 
 ## Getting started
 
@@ -59,7 +60,8 @@ intrinsiq-portfolio/
 │   │   ├── (overview)/           The `/` route; the parentheses keep it out of the URL
 │   │   │   ├── page.tsx          The fund overview, a Server Component
 │   │   │   └── _components/      Underscore: route-local, never a URL segment
-│   │   │       └── FundCard.tsx  One fund as a card; it builds `/funds/:id`
+│   │   │       ├── FundCard.tsx  One fund as a card; it builds `/funds/:id`
+│   │   │       └── FundFilters.tsx  The only `use client` in the app
 │   │   └── api/                  The API layer — the only caller of a vendor URL
 │   ├── lib/
 │   │   ├── env.ts                The only reader of the environment, validated once
@@ -75,6 +77,8 @@ intrinsiq-portfolio/
 │   │   ├── App.tsx               Skip link, the one <main>, footer pinned bottom
 │   │   ├── Navbar.tsx            Sticky bar carrying the brand
 │   │   └── Footer.tsx            The copyright line, and nothing else
+│   ├── src/primitives/           Third-party behaviour, our styling
+│   │   └── Select.tsx            Radix listbox; the one client component here
 │   ├── src/styles/tokens.css     Colour, space, radius, type and motion, one scale
 │   ├── src/lib/                  Pure functions: sparkline geometry, formatting
 │   └── src/types/                Ambient declarations, nothing importable
@@ -154,6 +158,11 @@ The fund grows at a steady 8–11% a quarter. The naive column swings between �
 - **`server-only` on `lib/env` and `lib/upstream`.** A Client Component importing either breaks the build instead of shipping it to the browser, and nothing carries a `NEXT_PUBLIC_` prefix. Measured on the production build: the vendor host appears zero times in the client bundle.
 - **`packages/core` gets no such guard** — the trade-off half. Tying it to a Next-specific package would cost the framework independence and the network-free tests it exists for. It stays out of the bundle by the weaker guarantee that nothing on the client imports it.
 - **One token scale, not two.** Colour, spacing, radius, type and motion live in `packages/ui/src/styles/tokens.css`, and the shadcn primitives will be pointed at the same variables — a second scale is how an interface ends up looking assembled rather than designed. Contrast was computed, not eyeballed: every text pair clears WCAG AA at 4.9:1 or better, and a border that carries meaning clears 3:1.
+- **Radix rather than shadcn/ui, and therefore no Tailwind.** A select needs behaviour a native `<select>` cannot give: its dropdown is drawn by the operating system and cannot be styled to match the page. shadcn provides that behaviour — but shadcn _is_ Radix wrapped in Tailwind classes, plus `lucide-react` for two glyphs and `cn()` for merging utility strings. Taking Radix directly gives the identical listbox, keyboard handling and ARIA, while the app keeps **one** styling system instead of two, and the Tailwind preflight never gets the chance to fight the base CSS it would have landed on top of.
+
+  What we declined was therefore not functionality but shadcn's _styling opinion_ — and that opinion had nothing to replace here, because the token scale was already in place with its contrast ratios computed. shadcn's value is consistent visual decisions across fifty components; at one select that benefit does not exist, while the side effects do. The cost is honest and ongoing: every further primitive gets hand-written CSS rather than arriving pre-styled.
+
+- **Filtering and sorting live in the URL, not in component state.** The controls are the only `'use client'` in the app; they write `?strategy=…&sort=…` and the server re-renders the filtered list. Holding the funds in client state would have pulled every card, figure and sparkline into the bundle to avoid one round trip — and a filtered view would not survive a refresh or a paste into Slack.
 - **The sparkline is hand-written SVG, not a chart library.** The saving is not the ~100 kB: Recharts requires `'use client'`, which would turn the fund card — and every value it renders — into client JavaScript instead of server-rendered HTML. Inline SVG is markup, so the overview page stays entirely a Server Component. A charting library appears on the fund detail page, where axes, tooltips and two series earn it.
 - **The upstream is untrusted input.** Zod at the boundary and `AbortSignal.timeout()` on every call, so a schema break is a handled `502` rather than an `undefined.map()` five layers deeper.
 - **Errors say only what the client can act on.** The vendor's URL, status and stack trace go to the server log; the 404 does not echo the requested id back.
@@ -169,8 +178,10 @@ The risk is in the transformation, not the rendering. A misplaced margin is visi
 
 **API — 17 tests against a stubbed vendor.** Not the fixtures: the arithmetic is already proved, what is unproved here is the contract. A `500`, a schema break and a silent hang all become the same `502`, and two tests pin down what that response may contain — the body must not hold the vendor's host, status or a stack frame, while the log must hold all three. Leak and swallow are opposite mistakes.
 
-**Presentation — 16 tests.** The pure parts carry the weight: the sparkline's coordinate maths is asserted directly, including that a gap ends one run and starts another rather than being drawn through, and that a lone reported quarter survives as its own run. Formatting is checked because a figure the domain keeps in absolute USD has to read back as `$102.0M`, and a missing one as an em dash rather than a zero.
+**Presentation — 27 tests.** The pure parts carry the weight: the sparkline's coordinate maths is asserted directly, including that a gap ends one run and starts another rather than being drawn through, and that a lone reported quarter survives as its own run. Formatting is checked because a figure the domain keeps in absolute USD has to read back as `$102.0M`, and a missing one as an em dash rather than a zero.
 
 The fund card is queried by role, not by test id, so the test fails if the heading stops being a heading. Three behaviours are pinned: the growth direction is announced in words and not only by a glyph and a colour; the coverage warning appears in prose when the headline rests on fewer companies than the fund holds, and stays silent when it does not; and the warning describes the quarter the headline came from, not whichever quarter sits last on the grid. `axe-core` runs over the rendered card and finds nothing — though not colour contrast, which needs a real canvas, so those ratios were computed separately.
+
+Filtering and sorting are tested as pure functions rather than through the UI, because that is where they run: a fund that reported nothing sinks to the bottom instead of ranking as zero, and sorting hands back a new array rather than reordering the caller's. The controls themselves are queried by role — `combobox` with an accessible name — so the test fails if a label stops being attached, and the live region is asserted to announce how much of the list survived.
 
 **Not covered, deliberately.** No chart-path assertions and no end-to-end suite. Rendering defects announce themselves on load; wrong aggregates do not.

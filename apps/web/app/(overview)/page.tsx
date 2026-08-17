@@ -1,14 +1,18 @@
 import FundCard from './_components/FundCard'
+import FundFilters from './_components/FundFilters'
+import { cn } from '@intrinsiq/ui/cn'
 import Icon from '@intrinsiq/ui/Icon'
 import styles from './page.module.css'
-import { getFunds } from '@/lib/portfolio'
+import { filterFunds, getFunds, sortFunds } from '@/lib/portfolio'
 import { formatCount, formatMillions } from '@intrinsiq/ui/format'
 
 const sumReported = (values: readonly (number | null)[]) =>
   values.filter((value) => value !== null).reduce((total, value) => total + value, 0)
 
-const HomePage = async () => {
+const HomePage = async ({ searchParams }: PageProps<'/'>) => {
   const { funds, dataQuality } = await getFunds()
+  const { strategy = 'all', status = 'all', sort = 'revenue' } = await searchParams
+  const shown = sortFunds(filterFunds(funds, String(strategy), String(status)), String(sort))
 
   const companyCount = funds.reduce((total, fund) => total + fund.companyCount, 0)
   const latestRevenue = sumReported(funds.map((fund) => fund.latestRevenue))
@@ -50,7 +54,7 @@ const HomePage = async () => {
           </dt>
           <dd>{formatMillions(latestRevenue)}</dd>
         </div>
-        <div className={dataQuality.companiesWithoutKpis > 0 ? styles.flagged : undefined}>
+        <div className={cn(dataQuality.companiesWithoutKpis > 0 && styles.flagged)}>
           <dt>
             <Icon name="gap" />
             Companies not reporting
@@ -69,11 +73,22 @@ const HomePage = async () => {
         </div>
       </dl>
       <h2 className={styles.listHeading}>Funds</h2>
-      <ul className={styles.grid}>
-        {funds.map((fund) => (
-          <FundCard fund={fund} key={fund.id} />
-        ))}
-      </ul>
+      <FundFilters
+        shown={shown.length}
+        sort={String(sort)}
+        status={String(status)}
+        strategy={String(strategy)}
+        total={funds.length}
+      />
+      {shown.length === 0 ? (
+        <p className={styles.empty}>No fund matches these filters.</p>
+      ) : (
+        <ul className={styles.grid}>
+          {shown.map((fund) => (
+            <FundCard fund={fund} key={fund.id} />
+          ))}
+        </ul>
+      )}
       <p className={styles.footnote}>
         The pipeline resolved {dataQuality.duplicatesResolved} restated quarters and dropped{' '}
         {dataQuality.orphanKpiRows} KPI rows belonging to companies that are not in the portfolio.

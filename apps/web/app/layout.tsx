@@ -1,4 +1,5 @@
 import App from '@intrinsiq/ui/App'
+import { cn } from '@intrinsiq/ui/cn'
 import '@intrinsiq/ui/tokens.css'
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
 
 const RootLayout = ({ children }: LayoutProps<'/'>) => {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="en" className={cn(geistSans.variable, geistMono.variable)}>
       <body>
         <App brand={<Link href="/">Intrinsiq</Link>}>{children}</App>
       </body>

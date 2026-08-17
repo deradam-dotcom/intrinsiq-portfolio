@@ -5,6 +5,7 @@ import {
   formatSignedPercent,
   notReported,
 } from '@intrinsiq/ui/format'
+import { cn } from '@intrinsiq/ui/cn'
 import Sparkline from '@intrinsiq/ui/Sparkline'
 import Link from 'next/link'
 import styles from './FundCard.module.css'
@@ -56,7 +57,7 @@ const FundCard = ({ fund }: FundCardProps) => {
           <div>
             <dt>Latest revenue</dt>
             <dd className={styles.headline}>{formatMillions(fund.latestRevenue)}</dd>
-            <dd className={`${styles.growth} ${growth.tone}`}>
+            <dd className={cn(styles.growth, growth.tone)}>
               <span aria-hidden="true">{growth.glyph}</span>
               <span className={styles.visuallyHidden}>{growth.label}</span>
               {formatSignedPercent(fund.revenueGrowthYoy)} year on year
@@ -64,7 +65,7 @@ const FundCard = ({ fund }: FundCardProps) => {
           </div>
           <div>
             <dt>EBITDA margin</dt>
-            <dd className={isLoss(fund.ebitdaMargin) ? styles.negative : undefined}>
+            <dd className={cn(isLoss(fund.ebitdaMargin) && styles.negative)}>
               {formatPercent(fund.ebitdaMargin)}
             </dd>
           </div>
@@ -95,10 +96,7 @@ const FundCard = ({ fund }: FundCardProps) => {
           </h3>
           <ul>
             {fund.companies.map((company) => (
-              <li
-                className={company.latestQuarter === null ? styles.silent : undefined}
-                key={company.id}
-              >
+              <li className={cn(company.latestQuarter === null && styles.silent)} key={company.id}>
                 {company.latestQuarter === null ? `${company.name} · not reporting` : company.name}
               </li>
             ))}
