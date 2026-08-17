@@ -1,12 +1,12 @@
 import { z } from 'zod'
 
-export const fundStrategySchema = z.enum(['private_equity', 'venture_capital', 'private_credit'])
+const fundStrategySchema = z.enum(['private_equity', 'venture_capital', 'private_credit'])
 
-export const fundStatusSchema = z.enum(['investing', 'post_investment'])
+const fundStatusSchema = z.enum(['investing', 'post_investment'])
 
-export const quarterSchema = z.string().regex(/^\d{4}-Q[1-4]$/)
+const quarterSchema = z.string().regex(/^\d{4}-Q[1-4]$/)
 
-export const upstreamFundSchema = z.object({
+const upstreamFundSchema = z.object({
   id: z.string().min(1),
   name: z.string().min(1),
   strategy: fundStrategySchema,
@@ -15,7 +15,7 @@ export const upstreamFundSchema = z.object({
   targetSizeMillionsUsd: z.number().nonnegative(),
 })
 
-export const upstreamCompanySchema = z.object({
+const upstreamCompanySchema = z.object({
   id: z.string().min(1),
   fundId: z.string().min(1),
   name: z.string().min(1),
@@ -24,7 +24,7 @@ export const upstreamCompanySchema = z.object({
   initialInvestmentYear: z.number().int(),
 })
 
-export const upstreamKpiSchema = z.object({
+const upstreamKpiSchema = z.object({
   companyId: z.string().min(1),
   quarter: quarterSchema,
   revenue: z.number().nonnegative().nullable(),

@@ -33,7 +33,7 @@ const ebitdaIn = (record: CompanyRecord, quarter: string) =>
 const headcountIn = (record: CompanyRecord, quarter: string) =>
   record.series.find((point) => point.quarter === quarter)?.headcount ?? null
 
-export const buildFundTimeseries = (
+const buildFundTimeseries = (
   records: readonly CompanyRecord[],
   grid: readonly string[],
 ): FundQuarterPoint[] =>
@@ -61,10 +61,7 @@ export const toLikeForLikeGrowth = (
   )
 }
 
-export const toFundEbitdaMargin = (
-  records: readonly CompanyRecord[],
-  quarter: string,
-): number | null => {
+const toFundEbitdaMargin = (records: readonly CompanyRecord[], quarter: string): number | null => {
   const comparable = records.filter(
     (record) => revenueIn(record, quarter) !== null && ebitdaIn(record, quarter) !== null,
   )
@@ -75,25 +72,25 @@ export const toFundEbitdaMargin = (
   )
 }
 
-export const toPortfolioValuation = (records: readonly CompanyRecord[]): Valuation | null => {
-  const [first, ...rest] = records
+const toPortfolioValuation = (records: readonly CompanyRecord[]): Valuation | null => {
+  const carried = records
     .map((record) => record.summary.valuation)
     .filter((valuation) => valuation !== null)
 
-  if (first === undefined) {
+  if (carried.length === 0) {
     return null
   }
 
   return {
-    value: [first, ...rest].reduce((total, valuation) => total + valuation.value, 0),
-    asOf: rest.reduce(
+    value: carried.reduce((total, valuation) => total + valuation.value, 0),
+    asOf: carried.reduce(
       (latest, valuation) => (valuation.asOf > latest ? valuation.asOf : latest),
-      first.asOf,
+      '',
     ),
   }
 }
 
-export const summariseFund = (
+const summariseFund = (
   fund: UpstreamFund,
   records: readonly CompanyRecord[],
   timeseries: readonly FundQuarterPoint[],

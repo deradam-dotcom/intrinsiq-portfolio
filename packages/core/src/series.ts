@@ -8,7 +8,7 @@ export type CompanyRecord = {
   series: CompanyQuarterPoint[]
 }
 
-export const buildCompanySeries = (
+const buildCompanySeries = (
   rows: readonly UpstreamKpi[],
   grid: readonly string[],
 ): CompanyQuarterPoint[] => {
@@ -27,7 +27,7 @@ export const buildCompanySeries = (
   })
 }
 
-export const carryValuationForward = (series: readonly CompanyQuarterPoint[]): Valuation | null =>
+const carryValuationForward = (series: readonly CompanyQuarterPoint[]): Valuation | null =>
   series.reduce<Valuation | null>(
     (carried, point) =>
       point.valuation === null ? carried : { value: point.valuation, asOf: point.quarter },

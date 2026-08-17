@@ -12,7 +12,7 @@ export const toQuarterIndex = (quarter: string): number | null => {
   return Number(match[1]) * quartersPerYear + (Number(match[2]) - 1)
 }
 
-export const fromQuarterIndex = (index: number): string =>
+const fromQuarterIndex = (index: number): string =>
   `${Math.floor(index / quartersPerYear)}-Q${(index % quartersPerYear) + 1}`
 
 export const shiftQuarter = (quarter: string, offset: number): string | null => {
