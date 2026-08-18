@@ -18,8 +18,9 @@ The browser never talks to the vendor. All three feeds are fetched, validated an
 | Linting         | ESLint (flat config) + Prettier   | 9.39.5 / 3.9.6 |
 | Tests           | Vitest                            | 4.1.10         |
 | Interactive     | Radix UI, styled with CSS Modules | 2.3.7          |
+| Charts          | Recharts, on the detail page only | 3.10.1         |
 
-Layout is plain CSS Modules over a shared token file. A component library appears only where a primitive earns it — so far, one select.
+Layout is plain CSS Modules over a shared token file. A library appears only where it earns its place — one select, and one chart.
 
 ## Getting started
 
@@ -63,13 +64,15 @@ intrinsiq-portfolio/
 │   │   │       ├── FundCard.tsx  One fund as a card; it builds `/funds/:id`
 │   │   │       └── FundFilters.tsx  The only `use client` in the app
 │   │   ├── funds/[fundId]/       The fund drill-down, with its own components
-│   │   │   ├── page.tsx          Header, coverage strip, company table
-│   │   │   └── _components/      CompanyTable and CoverageStrip
+│   │   │   ├── page.tsx          Header, trend chart, coverage rail, company table
+│   │   │   └── _components/      KpiChart, CoverageStrip, CompanyTable
 │   │   └── api/                  The API layer — the only caller of a vendor URL
 │   ├── lib/
 │   │   ├── env.ts                The only reader of the environment, validated once
 │   │   ├── upstream.ts           The only module that touches the network
 │   │   ├── portfolio.ts          What the pages read, over the app's own HTTP API
+│   │   ├── labels.ts             One source for the words a code maps to
+│   │   ├── chart.ts              The chart's spoken description, as a pure function
 │   │   └── api.ts                Shared response shapes: cache header, 404, 502
 │   └── test/                     The API contract, and the vendor failing
 ├── packages/ui/                  Presentational only — props in, JSX out
@@ -181,8 +184,8 @@ The risk is in the transformation, not the rendering. A misplaced margin is visi
 
 **API — 19 tests** against a stubbed vendor. The arithmetic is already proved; what is unproved here is the contract. A `500`, a schema break and a silent hang all become the same `502`, and two tests pin down what that response may contain: the body must not hold the vendor's host, status or a stack frame, while the log must hold all three. Leak and swallow are opposite mistakes.
 
-**Presentation and page logic — 36 tests.** The pure parts carry the weight — sparkline geometry, where a gap ends one run and starts another rather than being drawn through; formatting, where absolute USD has to read back as `$102.0M` and a missing figure as an em dash; and filtering, sorting and the portfolio headline, which is R4 one level up and whose sort, when mutated away, fails two tests. Components are queried by role rather than by test id, so a test fails when the markup stops being a real table, when a `<label>` comes loose from its combobox, or when growth stops being announced in words as well as by colour and a glyph. `axe-core` runs over the rendered card and table; colour contrast needs a real canvas, so those ratios were computed separately.
+**Presentation and page logic — 42 tests.** The pure parts carry the weight — sparkline geometry, where a gap ends one run and starts another rather than being drawn through; formatting, where absolute USD has to read back as `$102.0M` and a missing figure as an em dash; and filtering, sorting and the portfolio headline, which is R4 one level up and whose sort, when mutated away, fails two tests. Components are queried by role rather than by test id, so a test fails when the markup stops being a real table, when a `<label>` comes loose from its combobox, or when growth stops being announced in words as well as by colour and a glyph. `axe-core` runs over the rendered card and table; colour contrast needs a real canvas, so those ratios were computed separately. The chart is tested through its text equivalent rather than its paths: the spoken description is a pure function asserted directly, and the hidden table is asserted to carry every figure — including an em dash where the drawing simply has a break.
 
 Six tests were removed rather than added, because none of them could fail against a broken implementation — the only bar a test has to clear.
 
-**Not covered, deliberately.** No chart-path assertions and no end-to-end suite. Rendering defects announce themselves on load; wrong aggregates do not.
+**Not covered, deliberately.** No assertions on the SVG the chart library emits, and no end-to-end suite. Rendering defects announce themselves on load; wrong aggregates do not.

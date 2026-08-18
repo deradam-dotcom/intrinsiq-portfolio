@@ -1,3 +1,4 @@
+import { statusLabels, strategyLabels } from '@/lib/labels'
 import { getFund } from '@/lib/portfolio'
 import {
   formatCount,
@@ -13,18 +14,8 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import CompanyTable from './_components/CompanyTable'
 import CoverageStrip from './_components/CoverageStrip'
+import KpiChart from './_components/KpiChart'
 import styles from './page.module.css'
-
-const strategyLabels: Record<string, string> = {
-  private_equity: 'Private equity',
-  venture_capital: 'Venture capital',
-  private_credit: 'Private credit',
-}
-
-const statusLabels: Record<string, string> = {
-  investing: 'Investing',
-  post_investment: 'Post-investment',
-}
 
 export const generateMetadata = async ({
   params,
@@ -107,11 +98,13 @@ const FundPage = async ({ params }: PageProps<'/funds/[fundId]'>) => {
           </dd>
         </div>
       </dl>
-      <h2 className={styles.sectionHeading}>Reporting coverage</h2>
+      <h2 className={styles.sectionHeading}>Revenue and EBITDA</h2>
       <p className={styles.note}>
-        How many companies stood behind the fund total in each quarter. A quarter with fewer
-        reporters is not a smaller fund — it is a smaller sample.
+        Quarterly totals over the companies that reported. A break in a line is a quarter nobody
+        filed, not a zero — the rail underneath says how many companies stood behind each point, so
+        a dip can be read as a smaller sample rather than a smaller fund.
       </p>
+      <KpiChart timeseries={timeseries} />
       <CoverageStrip timeseries={timeseries} />
       <h2 className={styles.sectionHeading}>Portfolio companies</h2>
       <CompanyTable companies={companies} fundName={fund.name} />

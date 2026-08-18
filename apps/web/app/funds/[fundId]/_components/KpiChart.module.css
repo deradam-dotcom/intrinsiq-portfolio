@@ -1,0 +1,91 @@
+.figure {
+  margin-top: var(--space-4);
+  padding: var(--space-6) var(--space-4) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+
+.plot {
+  height: 18rem;
+  color: #004d7acc;
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.plot stop:nth-child(1) {
+  stop-color: #004d7acc;
+}
+
+.plot stop:nth-child(2) {
+  stop-color: #0077b6cc;
+}
+
+.plot stop:nth-child(3) {
+  stop-color: #00a6c7cc;
+}
+
+.plot stop:nth-child(4) {
+  stop-color: #00d4d4cc;
+}
+
+.plot stop:nth-child(5) {
+  stop-color: #20f2e0cc;
+}
+
+.plot text {
+  fill: var(--color-text-muted);
+}
+
+.grid line {
+  stroke: var(--color-border);
+}
+
+.zero line {
+  stroke: var(--color-border-strong);
+}
+
+.revenue {
+  color: var(--color-accent);
+}
+
+.ebitda {
+  color: var(--color-text-muted);
+}
+
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-6);
+  margin-top: var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.legend span {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.legend span::before {
+  content: '';
+  width: 1.5rem;
+  height: 2px;
+  background: linear-gradient(to right, #004d7acc, #00a6c7cc, #20f2e0cc);
+}
+
+.ebitdaKey::before {
+  mask-image: repeating-linear-gradient(to right, #000 0 5px, transparent 5px 9px);
+}
+
+.equivalent {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

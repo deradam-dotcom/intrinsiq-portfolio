@@ -1,5 +1,6 @@
 import CompanyTable from '@/app/funds/[fundId]/_components/CompanyTable'
 import CoverageStrip from '@/app/funds/[fundId]/_components/CoverageStrip'
+import KpiChart from '@/app/funds/[fundId]/_components/KpiChart'
 import type { CompanySummary, FundQuarterPoint } from '@intrinsiq/core'
 import { cleanup, render, screen } from '@testing-library/react'
 import axe from 'axe-core'
@@ -96,5 +97,48 @@ describe('the coverage strip', () => {
 
     expect(screen.getByText('3/5')).toBeDefined()
     expect(screen.getByText('5/5')).toBeDefined()
+  })
+})
+
+describe('the revenue and ebitda chart', () => {
+  const timeseries: FundQuarterPoint[] = [
+    {
+      quarter: '2024-Q2',
+      revenue: 102_000_000,
+      ebitda: -4_000_000,
+      headcount: 400,
+      reportingCompanies: 5,
+      totalCompanies: 5,
+    },
+    {
+      quarter: '2024-Q3',
+      revenue: null,
+      ebitda: null,
+      headcount: null,
+      reportingCompanies: 0,
+      totalCompanies: 5,
+    },
+  ]
+
+  it('describes the trend for a reader who cannot see the lines', () => {
+    render(<KpiChart timeseries={timeseries} />)
+
+    expect(screen.getByRole('img', { name: /Revenue and EBITDA by quarter/ })).toBeDefined()
+    expect(screen.getByRole('img', { name: /No revenue was reported in 2024-Q3/ })).toBeDefined()
+  })
+
+  it('carries the figures in a real table, not only in the drawing', () => {
+    render(<KpiChart timeseries={timeseries} />)
+
+    expect(screen.getByRole('table', { name: /in figures/ })).toBeDefined()
+    expect(screen.getByRole('rowheader', { name: '2024-Q2' })).toBeDefined()
+    expect(screen.getByText('$102.0M')).toBeDefined()
+  })
+
+  it('leaves an unreported quarter blank rather than drawing it as zero', () => {
+    render(<KpiChart timeseries={timeseries} />)
+
+    expect(screen.queryByText('$0.0M')).toBeNull()
+    expect(screen.getAllByText('—').length).toBe(2)
   })
 })
