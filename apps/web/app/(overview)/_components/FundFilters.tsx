@@ -1,23 +1,11 @@
 'use client'
 
+import { statusOptions, strategyOptions } from '@/lib/labels'
 import Select from '@intrinsiq/ui/primitives/Select'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import styles from './FundFilters.module.css'
 
-export const strategyOptions = [
-  { value: 'all', label: 'All strategies' },
-  { value: 'private_equity', label: 'Private equity' },
-  { value: 'venture_capital', label: 'Venture capital' },
-  { value: 'private_credit', label: 'Private credit' },
-] as const
-
-export const statusOptions = [
-  { value: 'all', label: 'All statuses' },
-  { value: 'investing', label: 'Investing' },
-  { value: 'post_investment', label: 'Post-investment' },
-] as const
-
-export const sortOptions = [
+const sortOptions = [
   { value: 'revenue', label: 'Latest revenue' },
   { value: 'growth', label: 'Revenue growth' },
   { value: 'size', label: 'Target size' },

@@ -1,3 +1,4 @@
+import { statusLabels, strategyLabels } from '@/lib/labels'
 import type { FundListing } from '@/lib/portfolio'
 import {
   formatMillions,
@@ -12,17 +13,6 @@ import styles from './FundCard.module.css'
 
 type FundCardProps = {
   fund: FundListing
-}
-
-const strategyLabels: Record<FundListing['strategy'], string> = {
-  private_equity: 'Private equity',
-  venture_capital: 'Venture capital',
-  private_credit: 'Private credit',
-}
-
-const statusLabels: Record<FundListing['status'], string> = {
-  investing: 'Investing',
-  post_investment: 'Post-investment',
 }
 
 const isLoss = (value: number | null) => value !== null && value < 0
