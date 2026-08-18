@@ -50,7 +50,7 @@
 
 .table tbody tr:hover th,
 .table tbody tr:hover td {
-  background: var(--color-surface-subtle);
+  background: color-mix(in srgb, var(--color-text) 3%, var(--color-surface));
 }
 
 .numeric {
@@ -68,4 +68,13 @@
 .silent th,
 .silent td {
   color: var(--color-caution);
+}
+
+.link {
+  color: var(--color-accent);
+}
+
+.link:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }

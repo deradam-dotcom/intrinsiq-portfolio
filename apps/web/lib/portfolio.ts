@@ -1,5 +1,6 @@
 import 'server-only'
 import type {
+  CompanyQuarterPoint,
   CompanySummary,
   DataQualityReport,
   FundQuarterPoint,
@@ -16,6 +17,11 @@ export type FundDetail = {
   fund: FundSummary
   companies: CompanySummary[]
   timeseries: FundQuarterPoint[]
+}
+
+export type CompanyDetail = {
+  company: CompanySummary
+  series: CompanyQuarterPoint[]
 }
 
 export type FundsResponse = {
@@ -93,6 +99,20 @@ export const getFunds = async (): Promise<FundsResponse> => {
 
 export const getFund = async (fundId: string): Promise<FundDetail | null> => {
   const response = await fetch(await toAbsolute(`/api/funds/${encodeURIComponent(fundId)}`))
+
+  if (response.status === 404) {
+    return null
+  }
+
+  if (!response.ok) {
+    throw new Error(`The portfolio API answered ${response.status}.`)
+  }
+
+  return response.json()
+}
+
+export const getCompany = async (companyId: string): Promise<CompanyDetail | null> => {
+  const response = await fetch(await toAbsolute(`/api/companies/${encodeURIComponent(companyId)}`))
 
   if (response.status === 404) {
     return null

@@ -1,7 +1,7 @@
 'use client'
 
+import type { TrendPoint } from '@/lib/chart'
 import { describeSeries } from '@/lib/chart'
-import type { FundQuarterPoint } from '@intrinsiq/core'
 import { formatMillions, notReported } from '@intrinsiq/ui/format'
 import {
   CartesianGrid,
@@ -16,17 +16,17 @@ import {
 import styles from './KpiChart.module.css'
 
 type KpiChartProps = {
-  timeseries: readonly FundQuarterPoint[]
+  points: readonly TrendPoint[]
 }
 
 const gradientId = 'kpi-line-stroke'
 
-const KpiChart = ({ timeseries }: KpiChartProps) => (
+const KpiChart = ({ points }: KpiChartProps) => (
   <figure className={styles.figure}>
-    <div aria-label={describeSeries(timeseries)} className={styles.canvas} role="img">
+    <div aria-label={describeSeries(points)} className={styles.canvas} role="img">
       <div aria-hidden="true" className={styles.plot}>
         <ResponsiveContainer height="100%" width="100%">
-          <LineChart data={[...timeseries]} margin={{ top: 8, right: 8, bottom: 0, left: 8 }}>
+          <LineChart data={[...points]} margin={{ top: 8, right: 8, bottom: 0, left: 8 }}>
             <defs>
               <linearGradient id={gradientId} x1="0" x2="0" y1="1" y2="0">
                 <stop offset="0" />
@@ -93,18 +93,14 @@ const KpiChart = ({ timeseries }: KpiChartProps) => (
           <th scope="col">Quarter</th>
           <th scope="col">Revenue</th>
           <th scope="col">EBITDA</th>
-          <th scope="col">Companies reporting</th>
         </tr>
       </thead>
       <tbody>
-        {timeseries.map((point) => (
+        {points.map((point) => (
           <tr key={point.quarter}>
             <th scope="row">{point.quarter}</th>
             <td>{point.revenue === null ? notReported : formatMillions(point.revenue)}</td>
             <td>{point.ebitda === null ? notReported : formatMillions(point.ebitda)}</td>
-            <td>
-              {point.reportingCompanies} of {point.totalCompanies}
-            </td>
           </tr>
         ))}
       </tbody>

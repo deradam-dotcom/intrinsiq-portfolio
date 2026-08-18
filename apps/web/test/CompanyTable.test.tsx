@@ -40,7 +40,7 @@ afterEach(cleanup)
 
 describe('the portfolio company table', () => {
   it('is a real table, so a screen reader can navigate it by column', () => {
-    render(<CompanyTable companies={companies} fundName="Acme Growth Fund III" />)
+    render(<CompanyTable companies={companies} fundId="fund-003" fundName="Acme Growth Fund III" />)
 
     expect(screen.getByRole('table', { name: /Acme Growth Fund III/ })).toBeDefined()
     expect(screen.getByRole('columnheader', { name: 'EBITDA margin' })).toBeDefined()
@@ -48,14 +48,14 @@ describe('the portfolio company table', () => {
   })
 
   it('says a company is not reporting rather than showing it as a zero', () => {
-    render(<CompanyTable companies={companies} fundName="Acme Growth Fund III" />)
+    render(<CompanyTable companies={companies} fundId="fund-003" fundName="Acme Growth Fund III" />)
 
     expect(screen.getByText('Not reporting')).toBeDefined()
     expect(screen.queryByText('$0.0M')).toBeNull()
   })
 
   it('lets a keyboard reach the columns that sit past the right edge', () => {
-    render(<CompanyTable companies={companies} fundName="Acme Growth Fund III" />)
+    render(<CompanyTable companies={companies} fundId="fund-003" fundName="Acme Growth Fund III" />)
 
     const region = screen.getByRole('region', { name: /Acme Growth Fund III/ })
 
@@ -64,7 +64,7 @@ describe('the portfolio company table', () => {
 
   it('has no accessibility violations axe can find', async () => {
     const { container } = render(
-      <CompanyTable companies={companies} fundName="Acme Growth Fund III" />,
+      <CompanyTable companies={companies} fundId="fund-003" fundName="Acme Growth Fund III" />,
     )
     const { violations } = await axe.run(container)
 
@@ -142,14 +142,14 @@ describe('the revenue and ebitda chart', () => {
   ]
 
   it('describes the trend for a reader who cannot see the lines', () => {
-    render(<KpiChart timeseries={timeseries} />)
+    render(<KpiChart points={timeseries} />)
 
     expect(screen.getByRole('img', { name: /Revenue and EBITDA by quarter/ })).toBeDefined()
     expect(screen.getByRole('img', { name: /No revenue was reported in 2024-Q3/ })).toBeDefined()
   })
 
   it('carries the figures in a real table, not only in the drawing', () => {
-    render(<KpiChart timeseries={timeseries} />)
+    render(<KpiChart points={timeseries} />)
 
     expect(screen.getByRole('table', { name: /in figures/ })).toBeDefined()
     expect(screen.getByRole('rowheader', { name: '2024-Q2' })).toBeDefined()
@@ -157,7 +157,7 @@ describe('the revenue and ebitda chart', () => {
   })
 
   it('leaves an unreported quarter blank rather than drawing it as zero', () => {
-    render(<KpiChart timeseries={timeseries} />)
+    render(<KpiChart points={timeseries} />)
 
     expect(screen.queryByText('$0.0M')).toBeNull()
     expect(screen.getAllByText('—').length).toBe(2)

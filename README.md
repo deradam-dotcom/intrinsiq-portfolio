@@ -65,14 +65,17 @@ intrinsiq-portfolio/
 │   │   │       └── FundFilters.tsx  The only `use client` in the app
 │   │   ├── funds/[fundId]/       The fund drill-down, with its own components
 │   │   │   ├── page.tsx          Header, trend chart, coverage rail, company table
-│   │   │   └── _components/      KpiChart, CoverageStrip, CompanyTable
+│   │   │   ├── _components/      KpiChart, CoverageStrip, CompanyTable
+│   │   │   └── companies/[companyId]/  The company drill-down, nested under its fund
+│   │   │       ├── page.tsx      Its own KPIs, the same chart, valuation events
+│   │   │       └── _components/  ValuationEvents
 │   │   └── api/                  The API layer — the only caller of a vendor URL
 │   ├── lib/
 │   │   ├── env.ts                The only reader of the environment, validated once
 │   │   ├── upstream.ts           The only module that touches the network
 │   │   ├── portfolio.ts          What the pages read, over the app's own HTTP API
 │   │   ├── labels.ts             One source for the words a code maps to
-│   │   ├── chart.ts              The chart's spoken description, as a pure function
+│   │   ├── chart.ts              The trend point shape, and its spoken description
 │   │   └── api.ts                Shared response shapes: cache header, 404, 502
 │   └── test/                     The API contract, the components, the vendor failing
 ├── packages/ui/                  Presentational only — props in, JSX out
@@ -123,7 +126,7 @@ The feeds are `funds.json`, `companies.json` and `kpis.json` under `https://priv
 | `GET /api/funds/:fundId`        | `{ fund: FundSummary, companies: CompanySummary[], timeseries: FundQuarterPoint[] }` |
 | `GET /api/companies/:companyId` | `{ company: CompanySummary, series: CompanyQuarterPoint[] }`                         |
 
-The pages consume these endpoints over HTTP rather than importing the loader, which is what the spec asks for — the API layer is load-bearing, not decorative. `/funds/:fundId` renders Next's own not-found page when the API says no fund is held under that id.
+The pages consume these endpoints over HTTP rather than importing the loader, which is what the spec asks for — the API layer is load-bearing, not decorative. `/funds/:fundId` renders Next's own not-found page when the API says no fund is held under that id, and `/funds/:fundId/companies/:companyId` does the same when the company exists but belongs to a different fund, so a hand-typed URL cannot show a company under a fund that does not hold it.
 
 Errors answer as `{ error: { code, message } }` — `404 not_found`, or `502 upstream_unavailable` when the vendor answers badly, slowly, or not at all.
 
@@ -171,6 +174,7 @@ The fund grows at a steady 8–11% a quarter. The naive column swings between �
 - **Filtering and sorting live in the URL, not in component state.** The controls are the only `'use client'` in the app. Client state would have pulled every card, figure and sparkline into the bundle to avoid one round trip — and a filtered view would not survive a refresh or a paste into Slack.
 - **The sparkline is hand-written SVG, not a chart library.** Recharts requires `'use client'`, which would turn the fund card and every value it renders into client JavaScript instead of server-rendered HTML. A charting library appears on the fund detail page, where axes, tooltips and two series earn it.
 - **The company table stays a table at every width.** Cards would destroy the column alignment that "which company is dragging the fund" depends on, and would mean a second markup tree that has to rebuild `<caption>` and `<th scope>` and still cannot offer navigation by column. The narrow-screen cost is paid by a sticky first column and a focusable scroll region instead.
+- **One chart component serves both drill-downs.** It takes `{ quarter, revenue, ebitda }` rather than a fund or a company shape, which both satisfy structurally, so the Recharts markup and its text equivalent exist once. The fund page's coverage lives beside the chart in the rail rather than inside its hidden table, which is what let the shape shrink that far.
 - **The coverage rail opens on hover, focus and tap, not on hover alone.** Naming the companies behind a quarter is the point of R4, so it is content rather than decoration, and content behind a hover does not exist for a keyboard or a phone. The cost is that the rail is the fund page's own client component; the overview page stays entirely server-rendered.
 - **The upstream is untrusted input.** Zod at the boundary and `AbortSignal.timeout()` on every call, so a schema break is a handled `502` rather than an `undefined.map()` five layers deeper.
 - **Errors say only what the client can act on.** The vendor's URL, status and stack trace go to the server log; the 404 does not echo the requested id back.
@@ -186,7 +190,7 @@ The risk is in the transformation, not the rendering. A misplaced margin is visi
 
 **API — 19 tests** against a stubbed vendor. The arithmetic is already proved; what is unproved here is the contract. A `500`, a schema break and a silent hang all become the same `502`, and two tests pin down what that response may contain: the body must not hold the vendor's host, status or a stack frame, while the log must hold all three. Leak and swallow are opposite mistakes.
 
-**Presentation and page logic — 44 tests.** The pure parts carry the weight — sparkline geometry, where a gap ends one run and starts another rather than being drawn through; formatting, where absolute USD has to read back as `$102.0M` and a missing figure as an em dash; and filtering, sorting and the portfolio headline, which is R4 one level up and whose sort, when mutated away, fails two tests. Components are queried by role rather than by test id, so a test fails when the markup stops being a real table, when a `<label>` comes loose from its combobox, or when growth stops being announced in words as well as by colour and a glyph. `axe-core` runs over the rendered card and table; colour contrast needs a real canvas, so those ratios were computed separately. The chart is tested through its text equivalent rather than its paths: the spoken description is a pure function asserted directly, and the hidden table is asserted to carry every figure — including an em dash where the drawing simply has a break. The coverage rail's quarters are asserted to be buttons that name the companies, because a hover alone would have put that list out of reach of a keyboard or a phone, and the domain asserts that the names and the count come from the same list.
+**Presentation and page logic — 46 tests.** The pure parts carry the weight — sparkline geometry, where a gap ends one run and starts another rather than being drawn through; formatting, where absolute USD has to read back as `$102.0M` and a missing figure as an em dash; and filtering, sorting and the portfolio headline, which is R4 one level up and whose sort, when mutated away, fails two tests. Components are queried by role rather than by test id, so a test fails when the markup stops being a real table, when a `<label>` comes loose from its combobox, or when growth stops being announced in words as well as by colour and a glyph. `axe-core` runs over the rendered card and table; colour contrast needs a real canvas, so those ratios were computed separately. The chart is tested through its text equivalent rather than its paths: the spoken description is a pure function asserted directly, and the hidden table is asserted to carry every figure — including an em dash where the drawing simply has a break. The valuation list is asserted to hold only the quarters an event happened in, so a carried-forward figure cannot quietly become a staircase, and to say "never valued" in a sentence rather than showing an empty box. The coverage rail's quarters are asserted to be buttons that name the companies, because a hover alone would have put that list out of reach of a keyboard or a phone, and the domain asserts that the names and the count come from the same list.
 
 Six tests were removed rather than added, because none of them could fail against a broken implementation — the only bar a test has to clear.
 

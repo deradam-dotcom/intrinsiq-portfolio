@@ -105,10 +105,10 @@ const FundPage = async ({ params }: PageProps<'/funds/[fundId]'>) => {
         a dip can be read as a smaller sample rather than a smaller fund. Open a quarter on the rail
         to see which companies those were.
       </p>
-      <KpiChart timeseries={timeseries} />
+      <KpiChart points={timeseries} />
       <CoverageStrip companies={companies} timeseries={timeseries} />
       <h2 className={styles.sectionHeading}>Portfolio companies</h2>
-      <CompanyTable companies={companies} fundName={fund.name} />
+      <CompanyTable companies={companies} fundId={fund.id} fundName={fund.name} />
     </>
   )
 }

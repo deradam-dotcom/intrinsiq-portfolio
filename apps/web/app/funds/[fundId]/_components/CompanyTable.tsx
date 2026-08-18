@@ -1,4 +1,5 @@
 import type { CompanySummary } from '@intrinsiq/core'
+import Link from 'next/link'
 import { cn } from '@intrinsiq/ui/cn'
 import {
   formatCount,
@@ -12,11 +13,12 @@ import styles from './CompanyTable.module.css'
 type CompanyTableProps = {
   companies: readonly CompanySummary[]
   fundName: string
+  fundId: string
 }
 
 const captionId = 'company-table-caption'
 
-const CompanyTable = ({ companies, fundName }: CompanyTableProps) => (
+const CompanyTable = ({ companies, fundName, fundId }: CompanyTableProps) => (
   <div aria-labelledby={captionId} className={styles.scroller} role="region" tabIndex={0}>
     <table className={styles.table}>
       <caption className={styles.caption} id={captionId}>
@@ -47,7 +49,11 @@ const CompanyTable = ({ companies, fundName }: CompanyTableProps) => (
       <tbody>
         {companies.map((company) => (
           <tr className={cn(company.latestQuarter === null && styles.silent)} key={company.id}>
-            <th scope="row">{company.name}</th>
+            <th scope="row">
+              <Link className={styles.link} href={`/funds/${fundId}/companies/${company.id}`}>
+                {company.name}
+              </Link>
+            </th>
             <td>{company.sector}</td>
             <td className={styles.numeric}>{formatMillions(company.latestRevenue)}</td>
             <td
