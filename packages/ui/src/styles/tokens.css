@@ -9,14 +9,13 @@
   --color-text: #0d1220;
   --color-text-muted: #5a6478;
 
-  --color-accent: #4338ca;
-  --color-accent-hover: #3730a3;
-  --color-accent-soft: #eef0fd;
+  --color-accent: #0077b6;
+  --color-accent-deep: #004d7a;
   --color-accent-contrast: #ffffff;
 
   --color-positive: #047857;
   --color-negative: #be123c;
-  --color-caution: #a16207;
+  --color-caution: #9a5d06;
   --color-caution-soft: #fdf6e7;
 
   --space-1: 0.25rem;

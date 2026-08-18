@@ -53,6 +53,14 @@ describe('the portfolio company table', () => {
     expect(screen.queryByText('$0.0M')).toBeNull()
   })
 
+  it('lets a keyboard reach the columns that sit past the right edge', () => {
+    render(<CompanyTable companies={companies} fundName="Acme Growth Fund III" />)
+
+    const region = screen.getByRole('region', { name: /Acme Growth Fund III/ })
+
+    expect(region.tabIndex).toBe(0)
+  })
+
   it('has no accessibility violations axe can find', async () => {
     const { container } = render(
       <CompanyTable companies={companies} fundName="Acme Growth Fund III" />,

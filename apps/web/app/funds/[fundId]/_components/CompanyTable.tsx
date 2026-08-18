@@ -14,10 +14,12 @@ type CompanyTableProps = {
   fundName: string
 }
 
+const captionId = 'company-table-caption'
+
 const CompanyTable = ({ companies, fundName }: CompanyTableProps) => (
-  <div className={styles.scroller}>
+  <div aria-labelledby={captionId} className={styles.scroller} role="region" tabIndex={0}>
     <table className={styles.table}>
-      <caption className={styles.caption}>
+      <caption className={styles.caption} id={captionId}>
         Latest reported quarter for each company in {fundName}
       </caption>
       <thead>

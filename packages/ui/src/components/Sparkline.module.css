@@ -7,9 +7,28 @@
   transition: filter var(--duration-base) var(--ease-out);
 }
 
+.chart stop:nth-child(1) {
+  stop-color: #004d7acc;
+}
+
+.chart stop:nth-child(2) {
+  stop-color: #0077b6cc;
+}
+
+.chart stop:nth-child(3) {
+  stop-color: #00a6c7cc;
+}
+
+.chart stop:nth-child(4) {
+  stop-color: #00d4d4cc;
+}
+
+.chart stop:nth-child(5) {
+  stop-color: #20f2e0cc;
+}
+
 .chart polyline {
   fill: none;
-  stroke: var(--color-accent);
   stroke-width: 1.5;
   stroke-linecap: round;
   stroke-linejoin: round;

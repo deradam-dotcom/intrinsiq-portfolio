@@ -59,6 +59,28 @@ export const sortFunds = (funds: readonly FundListing[], sort: string): FundList
     return (right.latestRevenue ?? -Infinity) - (left.latestRevenue ?? -Infinity)
   })
 
+export const latestPortfolioRevenue = (funds: readonly FundListing[]) => {
+  const quarter =
+    funds
+      .map((fund) => fund.latestQuarter)
+      .filter((value) => value !== null)
+      .sort()
+      .at(-1) ?? null
+
+  if (quarter === null) {
+    return { quarter, revenue: null }
+  }
+
+  const reported = funds
+    .map((fund) => fund.timeseries.find((point) => point.quarter === quarter)?.revenue ?? null)
+    .filter((value) => value !== null)
+
+  return {
+    quarter,
+    revenue: reported.length === 0 ? null : reported.reduce((total, value) => total + value, 0),
+  }
+}
+
 export const getFunds = async (): Promise<FundsResponse> => {
   const response = await fetch(await toAbsolute('/api/funds'))
 

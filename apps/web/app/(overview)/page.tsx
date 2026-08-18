@@ -3,11 +3,8 @@ import FundFilters from './_components/FundFilters'
 import { cn } from '@intrinsiq/ui/cn'
 import Icon from '@intrinsiq/ui/Icon'
 import styles from './page.module.css'
-import { filterFunds, getFunds, sortFunds } from '@/lib/portfolio'
+import { filterFunds, getFunds, latestPortfolioRevenue, sortFunds } from '@/lib/portfolio'
 import { formatCount, formatMillions } from '@intrinsiq/ui/format'
-
-const sumReported = (values: readonly (number | null)[]) =>
-  values.filter((value) => value !== null).reduce((total, value) => total + value, 0)
 
 const HomePage = async ({ searchParams }: PageProps<'/'>) => {
   const { funds, dataQuality } = await getFunds()
@@ -15,10 +12,7 @@ const HomePage = async ({ searchParams }: PageProps<'/'>) => {
   const shown = sortFunds(filterFunds(funds, String(strategy), String(status)), String(sort))
 
   const companyCount = funds.reduce((total, fund) => total + fund.companyCount, 0)
-  const latestRevenue = sumReported(funds.map((fund) => fund.latestRevenue))
-  const latestQuarter = funds
-    .map((fund) => fund.latestQuarter)
-    .filter((quarter) => quarter !== null)
+  const latest = latestPortfolioRevenue(funds)
   const silent = funds.flatMap((fund) =>
     fund.companies.filter((company) => company.latestQuarter === null),
   )
@@ -50,9 +44,9 @@ const HomePage = async ({ searchParams }: PageProps<'/'>) => {
         <div>
           <dt>
             <Icon name="revenue" />
-            Revenue in {latestQuarter.at(-1) ?? 'the latest quarter'}
+            Revenue in {latest.quarter ?? 'the latest quarter'}
           </dt>
-          <dd>{formatMillions(latestRevenue)}</dd>
+          <dd>{formatMillions(latest.revenue)}</dd>
         </div>
         <div className={cn(dataQuality.companiesWithoutKpis > 0 && styles.flagged)}>
           <dt>

@@ -29,6 +29,11 @@
   font-variant-numeric: tabular-nums;
 }
 
+.complete {
+  background: color-mix(in srgb, var(--color-positive) 8%, var(--color-surface));
+}
+
+.complete .quarter,
 .complete .count {
   color: var(--color-positive);
 }
