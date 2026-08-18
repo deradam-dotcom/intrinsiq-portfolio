@@ -13,7 +13,12 @@ export default defineConfig({
       },
       {
         resolve: { alias },
-        test: { name: 'components', environment: 'jsdom', include: ['test/*.test.tsx'] },
+        test: {
+          name: 'components',
+          environment: 'jsdom',
+          include: ['test/*.test.tsx'],
+          setupFiles: ['./test/setup.ts'],
+        },
       },
     ],
   },

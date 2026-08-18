@@ -74,7 +74,7 @@ intrinsiq-portfolio/
 │   │   ├── labels.ts             One source for the words a code maps to
 │   │   ├── chart.ts              The chart's spoken description, as a pure function
 │   │   └── api.ts                Shared response shapes: cache header, 404, 502
-│   └── test/                     The API contract, and the vendor failing
+│   └── test/                     The API contract, the components, the vendor failing
 ├── packages/ui/                  Presentational only — props in, JSX out
 │   ├── src/components/           Where `./*` resolves — the public surface
 │   │   ├── Sparkline.tsx         Hand-written SVG; a gap breaks the line
@@ -84,7 +84,8 @@ intrinsiq-portfolio/
 │   │   ├── Navbar.tsx            Sticky bar carrying the brand
 │   │   └── Footer.tsx            The copyright line, and nothing else
 │   ├── src/primitives/           Third-party behaviour, our styling
-│   │   └── Select.tsx            Radix listbox; the one client component here
+│   │   ├── Select.tsx            Radix listbox behind a four-prop surface
+│   │   └── Popover.tsx           Radix popover; hover, focus and tap all open it
 │   ├── src/styles/tokens.css     Colour, space, radius, type and motion, one scale
 │   ├── src/lib/                  Pure functions: sparkline geometry, formatting
 │   └── src/types/                Ambient declarations, nothing importable
@@ -138,7 +139,7 @@ The feeds are inconsistent, and summing them naively produces numbers a manager 
 
 **R3 — every company sits on the same derived quarter grid (`2023-Q1`–`2025-Q4`), and a gap stays `null`.** `co-004`, `co-008` and `co-016` are missing quarters mid-history, `co-008` all of 2024. Never `0`, never interpolated: a fabricated financial figure cannot be told apart from a real one downstream.
 
-**R4 — a quarterly total travels with the count of companies behind it.** `reportingCompanies` counts companies with a revenue figure, which is stricter than "sent us a row": in `fund-003`/`2024-Q3` four of five filed, but `co-009` filed a null revenue, so the total rests on three. Eleven of the twelve quarters contain such a row.
+**R4 — a quarterly total travels with the companies behind it, by name.** `reporting` lists the companies with a revenue figure and `reportingCompanies` is its length, so the count and the names cannot drift apart. That predicate is stricter than "sent us a row": in `fund-003`/`2024-Q3` four of five filed, but `co-009` filed a null revenue, so the total rests on three. The two definitions disagree in 27% of fund-quarters, which is why the rail derives its names from the same list the badge is counted from.
 
 **R5 — growth is like-for-like: only companies reporting in both quarters count, in the numerator and the base.** `fund-003`, naive against like-for-like:
 
@@ -170,6 +171,7 @@ The fund grows at a steady 8–11% a quarter. The naive column swings between �
 - **Filtering and sorting live in the URL, not in component state.** The controls are the only `'use client'` in the app. Client state would have pulled every card, figure and sparkline into the bundle to avoid one round trip — and a filtered view would not survive a refresh or a paste into Slack.
 - **The sparkline is hand-written SVG, not a chart library.** Recharts requires `'use client'`, which would turn the fund card and every value it renders into client JavaScript instead of server-rendered HTML. A charting library appears on the fund detail page, where axes, tooltips and two series earn it.
 - **The company table stays a table at every width.** Cards would destroy the column alignment that "which company is dragging the fund" depends on, and would mean a second markup tree that has to rebuild `<caption>` and `<th scope>` and still cannot offer navigation by column. The narrow-screen cost is paid by a sticky first column and a focusable scroll region instead.
+- **The coverage rail opens on hover, focus and tap, not on hover alone.** Naming the companies behind a quarter is the point of R4, so it is content rather than decoration, and content behind a hover does not exist for a keyboard or a phone. The cost is that the rail is the fund page's own client component; the overview page stays entirely server-rendered.
 - **The upstream is untrusted input.** Zod at the boundary and `AbortSignal.timeout()` on every call, so a schema break is a handled `502` rather than an `undefined.map()` five layers deeper.
 - **Errors say only what the client can act on.** The vendor's URL, status and stack trace go to the server log; the 404 does not echo the requested id back.
 - **No format check on `:fundId` and `:companyId`.** The parameter never reaches a filesystem or an outbound URL, and a regex would reject a valid id the day the vendor ships `fund-A1`. The lookup is the validation.
@@ -180,11 +182,11 @@ The fund grows at a steady 8–11% a quarter. The naive column swings between �
 
 The risk is in the transformation, not the rendering. A misplaced margin is visible the moment the page loads; a fund KPI aggregated over the wrong set of companies looks perfectly reasonable and is wrong by tens of millions. Neither suite touches the network.
 
-**Domain — 34 tests** over frozen, complete copies of the real feeds. Complete rather than trimmed, because hand-picking rows is how a fixture quietly stops resembling its source. The cases are chosen so that passing cannot be a coincidence: `co-014` is restated upwards and `co-023` downwards, which separates "last wins" from "largest wins"; `co-009`'s null revenue must count as reported but not towards coverage; like-for-like growth is asserted against sums written out by hand. Both headline rules were mutation-checked — inverting coverage fails two tests, removing the like-for-like filter fails three.
+**Domain — 35 tests** over frozen, complete copies of the real feeds. Complete rather than trimmed, because hand-picking rows is how a fixture quietly stops resembling its source. The cases are chosen so that passing cannot be a coincidence: `co-014` is restated upwards and `co-023` downwards, which separates "last wins" from "largest wins"; `co-009`'s null revenue must count as reported but not towards coverage; like-for-like growth is asserted against sums written out by hand. Both headline rules were mutation-checked — inverting coverage fails two tests, removing the like-for-like filter fails three.
 
 **API — 19 tests** against a stubbed vendor. The arithmetic is already proved; what is unproved here is the contract. A `500`, a schema break and a silent hang all become the same `502`, and two tests pin down what that response may contain: the body must not hold the vendor's host, status or a stack frame, while the log must hold all three. Leak and swallow are opposite mistakes.
 
-**Presentation and page logic — 42 tests.** The pure parts carry the weight — sparkline geometry, where a gap ends one run and starts another rather than being drawn through; formatting, where absolute USD has to read back as `$102.0M` and a missing figure as an em dash; and filtering, sorting and the portfolio headline, which is R4 one level up and whose sort, when mutated away, fails two tests. Components are queried by role rather than by test id, so a test fails when the markup stops being a real table, when a `<label>` comes loose from its combobox, or when growth stops being announced in words as well as by colour and a glyph. `axe-core` runs over the rendered card and table; colour contrast needs a real canvas, so those ratios were computed separately. The chart is tested through its text equivalent rather than its paths: the spoken description is a pure function asserted directly, and the hidden table is asserted to carry every figure — including an em dash where the drawing simply has a break.
+**Presentation and page logic — 44 tests.** The pure parts carry the weight — sparkline geometry, where a gap ends one run and starts another rather than being drawn through; formatting, where absolute USD has to read back as `$102.0M` and a missing figure as an em dash; and filtering, sorting and the portfolio headline, which is R4 one level up and whose sort, when mutated away, fails two tests. Components are queried by role rather than by test id, so a test fails when the markup stops being a real table, when a `<label>` comes loose from its combobox, or when growth stops being announced in words as well as by colour and a glyph. `axe-core` runs over the rendered card and table; colour contrast needs a real canvas, so those ratios were computed separately. The chart is tested through its text equivalent rather than its paths: the spoken description is a pure function asserted directly, and the hidden table is asserted to carry every figure — including an em dash where the drawing simply has a break. The coverage rail's quarters are asserted to be buttons that name the companies, because a hover alone would have put that list out of reach of a keyboard or a phone, and the domain asserts that the names and the count come from the same list.
 
 Six tests were removed rather than added, because none of them could fail against a broken implementation — the only bar a test has to clear.
 

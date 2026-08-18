@@ -2,7 +2,7 @@ import CompanyTable from '@/app/funds/[fundId]/_components/CompanyTable'
 import CoverageStrip from '@/app/funds/[fundId]/_components/CoverageStrip'
 import KpiChart from '@/app/funds/[fundId]/_components/KpiChart'
 import type { CompanySummary, FundQuarterPoint } from '@intrinsiq/core'
-import { cleanup, render, screen } from '@testing-library/react'
+import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import axe from 'axe-core'
 import { afterEach, describe, expect, it } from 'vitest'
 
@@ -79,6 +79,7 @@ describe('the coverage strip', () => {
       revenue: 1,
       ebitda: 1,
       headcount: 1,
+      reporting: ['co-008', 'co-021', 'c', 'd', 'e'],
       reportingCompanies: 5,
       totalCompanies: 5,
     },
@@ -87,16 +88,34 @@ describe('the coverage strip', () => {
       revenue: 1,
       ebitda: 1,
       headcount: 1,
+      reporting: ['c', 'd', 'e'],
       reportingCompanies: 3,
       totalCompanies: 5,
     },
   ]
 
   it('spells the shortfall out in figures, not only in colour', () => {
-    render(<CoverageStrip timeseries={timeseries} />)
+    render(<CoverageStrip companies={companies} timeseries={timeseries} />)
 
     expect(screen.getByText('3/5')).toBeDefined()
     expect(screen.getByText('5/5')).toBeDefined()
+  })
+
+  it('offers each quarter as a button, so the names are not locked behind a hover', () => {
+    render(<CoverageStrip companies={companies} timeseries={timeseries} />)
+
+    expect(
+      screen.getByRole('button', { name: /Which companies reported in 2024-Q3/ }),
+    ).toBeDefined()
+  })
+
+  it('names the companies behind the quarter once it is opened', () => {
+    render(<CoverageStrip companies={companies} timeseries={timeseries} />)
+    fireEvent.click(screen.getByRole('button', { name: /reported in 2024-Q3/ }))
+
+    expect(screen.getByText('Not reported (2)')).toBeDefined()
+    expect(screen.getByText('Cobalt Logistics')).toBeDefined()
+    expect(screen.getByText('Surge Technologies')).toBeDefined()
   })
 })
 
@@ -107,6 +126,7 @@ describe('the revenue and ebitda chart', () => {
       revenue: 102_000_000,
       ebitda: -4_000_000,
       headcount: 400,
+      reporting: ['a', 'b', 'c', 'd', 'e'],
       reportingCompanies: 5,
       totalCompanies: 5,
     },
@@ -115,6 +135,7 @@ describe('the revenue and ebitda chart', () => {
       revenue: null,
       ebitda: null,
       headcount: null,
+      reporting: [],
       reportingCompanies: 0,
       totalCompanies: 5,
     },

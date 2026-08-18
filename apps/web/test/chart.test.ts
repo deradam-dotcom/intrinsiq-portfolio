@@ -7,6 +7,7 @@ const point = (quarter: string, revenue: number | null): FundQuarterPoint => ({
   revenue,
   ebitda: null,
   headcount: null,
+  reporting: revenue === null ? [] : ['co-1'],
   reportingCompanies: revenue === null ? 0 : 1,
   totalCompanies: 1,
 })

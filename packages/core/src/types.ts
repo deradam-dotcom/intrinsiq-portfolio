@@ -34,6 +34,7 @@ export type FundQuarterPoint = {
   revenue: number | null
   ebitda: number | null
   headcount: number | null
+  reporting: string[]
   reportingCompanies: number
   totalCompanies: number
 }

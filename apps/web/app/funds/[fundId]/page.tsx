@@ -102,10 +102,11 @@ const FundPage = async ({ params }: PageProps<'/funds/[fundId]'>) => {
       <p className={styles.note}>
         Quarterly totals over the companies that reported. A break in a line is a quarter nobody
         filed, not a zero — the rail underneath says how many companies stood behind each point, so
-        a dip can be read as a smaller sample rather than a smaller fund.
+        a dip can be read as a smaller sample rather than a smaller fund. Open a quarter on the rail
+        to see which companies those were.
       </p>
       <KpiChart timeseries={timeseries} />
-      <CoverageStrip timeseries={timeseries} />
+      <CoverageStrip companies={companies} timeseries={timeseries} />
       <h2 className={styles.sectionHeading}>Portfolio companies</h2>
       <CompanyTable companies={companies} fundName={fund.name} />
     </>

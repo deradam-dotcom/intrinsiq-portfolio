@@ -37,14 +37,21 @@ const buildFundTimeseries = (
   records: readonly CompanyRecord[],
   grid: readonly string[],
 ): FundQuarterPoint[] =>
-  grid.map((quarter) => ({
-    quarter,
-    revenue: sumReported(records.map((record) => revenueIn(record, quarter))),
-    ebitda: sumReported(records.map((record) => ebitdaIn(record, quarter))),
-    headcount: sumReported(records.map((record) => headcountIn(record, quarter))),
-    reportingCompanies: records.filter((record) => revenueIn(record, quarter) !== null).length,
-    totalCompanies: records.length,
-  }))
+  grid.map((quarter) => {
+    const reporting = records
+      .filter((record) => revenueIn(record, quarter) !== null)
+      .map((record) => record.summary.id)
+
+    return {
+      quarter,
+      revenue: sumReported(records.map((record) => revenueIn(record, quarter))),
+      ebitda: sumReported(records.map((record) => ebitdaIn(record, quarter))),
+      headcount: sumReported(records.map((record) => headcountIn(record, quarter))),
+      reporting,
+      reportingCompanies: reporting.length,
+      totalCompanies: records.length,
+    }
+  })
 
 export const toLikeForLikeGrowth = (
   records: readonly CompanyRecord[],

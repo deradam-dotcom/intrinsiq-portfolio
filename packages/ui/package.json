@@ -33,6 +33,7 @@
     "vitest": "^4.1.10"
   },
   "dependencies": {
+    "@radix-ui/react-popover": "^1.1.23",
     "@radix-ui/react-select": "^2.3.7"
   }
 }

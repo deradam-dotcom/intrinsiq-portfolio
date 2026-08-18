@@ -40,7 +40,6 @@
 .table tbody th {
   position: sticky;
   left: 0;
-  z-index: 1;
   border-right: 1px solid var(--color-border);
   background: var(--color-surface);
 }

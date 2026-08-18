@@ -44,6 +44,15 @@ describe('quarterly coverage', () => {
     expect(quarterOf('fund-003', '2024-Q3').reportingCompanies).toBe(3)
   })
 
+  it('names the companies behind the figure, and the count follows the names', () => {
+    const quarter = quarterOf('fund-003', '2024-Q3')
+
+    expect(quarter.reporting).toEqual(['co-010', 'co-011', 'co-012'])
+    expect(quarter.reporting.length).toBe(quarter.reportingCompanies)
+    expect(quarter.reporting).not.toContain('co-008')
+    expect(quarter.reporting).not.toContain('co-009')
+  })
+
   it('keeps a silent company in the denominator so the gap stays visible', () => {
     const quarter = quarterOf('fund-005', '2025-Q4')
 
