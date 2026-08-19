@@ -91,6 +91,48 @@ ol {
   height: 0;
 }
 
+.state-panel {
+  max-width: 34rem;
+  margin: var(--space-12) auto;
+  padding: var(--space-8);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+}
+
+.state-panel p {
+  margin-top: var(--space-4);
+  color: var(--color-text-muted);
+}
+
+.state-panel a,
+.state-panel button {
+  display: inline-block;
+  margin-top: var(--space-8);
+  padding: var(--space-3) var(--space-6);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-out);
+}
+
+.state-panel a:hover,
+.state-panel button:hover {
+  background: var(--color-accent-deep);
+}
+
+.state-panel .reference {
+  margin-top: var(--space-6);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

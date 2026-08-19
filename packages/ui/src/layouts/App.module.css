@@ -29,5 +29,12 @@
   width: 100%;
   max-width: var(--layout-max);
   margin: 0 auto;
-  padding: var(--space-8) var(--space-6) var(--space-12);
+  padding: var(--space-8) var(--space-4) var(--space-12);
+}
+
+@media (max-width: 40rem) {
+  .main {
+    padding-right: var(--space-2);
+    padding-left: var(--space-2);
+  }
 }
