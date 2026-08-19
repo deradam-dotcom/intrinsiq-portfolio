@@ -101,17 +101,15 @@ describe('the coverage strip', () => {
     expect(screen.getByText('5/5')).toBeDefined()
   })
 
-  it('offers each quarter as a button, so the names are not locked behind a hover', () => {
+  it('offers each quarter as a button whose name repeats what the button shows', () => {
     render(<CoverageStrip companies={companies} timeseries={timeseries} />)
 
-    expect(
-      screen.getByRole('button', { name: /Which companies reported in 2024-Q3/ }),
-    ).toBeDefined()
+    expect(screen.getByRole('button', { name: '2024-Q3 3/5 companies reported' })).toBeDefined()
   })
 
   it('names the companies behind the quarter once it is opened', () => {
     render(<CoverageStrip companies={companies} timeseries={timeseries} />)
-    fireEvent.click(screen.getByRole('button', { name: /reported in 2024-Q3/ }))
+    fireEvent.click(screen.getByRole('button', { name: /2024-Q3/ }))
 
     expect(screen.getByText('Not reported (2)')).toBeDefined()
     expect(screen.getByText('Cobalt Logistics')).toBeDefined()

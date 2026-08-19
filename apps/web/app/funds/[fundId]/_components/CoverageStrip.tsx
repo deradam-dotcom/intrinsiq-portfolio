@@ -23,7 +23,7 @@ const CoverageStrip = ({ timeseries, companies }: CoverageStripProps) => {
   const [openQuarter, setOpenQuarter] = useState<string | null>(null)
 
   return (
-    <ol className={styles.strip}>
+    <ol aria-label="Reporting coverage by quarter" className={styles.strip}>
       {timeseries.map((point) => {
         const reported = companies.filter((company) => point.reporting.includes(company.id))
         const silent = companies.filter((company) => !point.reporting.includes(company.id))
@@ -37,15 +37,15 @@ const CoverageStrip = ({ timeseries, companies }: CoverageStripProps) => {
           >
             <Popover
               className={styles.trigger}
-              label={`Which companies reported in ${point.quarter}`}
               onOpenChange={(next) => setOpenQuarter(next ? point.quarter : null)}
               open={openQuarter === point.quarter}
               trigger={
                 <>
-                  <span className={styles.quarter}>{point.quarter}</span>
+                  <span className={styles.quarter}>{point.quarter}</span>{' '}
                   <span className={styles.count}>
                     {point.reportingCompanies}/{point.totalCompanies}
-                  </span>
+                  </span>{' '}
+                  <span className={styles.spoken}>companies reported</span>
                 </>
               }
             >

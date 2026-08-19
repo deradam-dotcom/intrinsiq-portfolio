@@ -35,9 +35,9 @@ const FundCard = ({ fund }: FundCardProps) => {
     <li>
       <article className={styles.card}>
         <div className={styles.heading}>
-          <h2>
+          <h3>
             <Link href={`/funds/${fund.id}`}>{fund.name}</Link>
-          </h2>
+          </h3>
           <p className={styles.meta}>
             {strategyLabels[fund.strategy]} · Vintage {fund.vintageYear} ·{' '}
             {statusLabels[fund.status]}
@@ -80,10 +80,10 @@ const FundCard = ({ fund }: FundCardProps) => {
           </p>
         )}
         <div className={styles.roster}>
-          <h3 className={styles.rosterHeading}>
+          <h4 className={styles.rosterHeading}>
             {fund.companies.length} portfolio{' '}
             {fund.companies.length === 1 ? 'company' : 'companies'}
-          </h3>
+          </h4>
           <ul>
             {fund.companies.map((company) => (
               <li className={cn(company.latestQuarter === null && styles.silent)} key={company.id}>

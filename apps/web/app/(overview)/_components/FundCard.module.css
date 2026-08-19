@@ -22,7 +22,7 @@
   box-shadow: var(--shadow-md);
 }
 
-.heading h2 {
+.heading h3 {
   font-size: var(--text-lg);
 }
 

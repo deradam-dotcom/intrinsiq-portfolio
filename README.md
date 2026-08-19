@@ -79,7 +79,7 @@ intrinsiq-portfolio/
 │   │   ├── env.ts                Reads the environment and validates it, once.
 │   │   ├── upstream.ts           Fetches the three feeds. The only module on the network.
 │   │   ├── portfolio.ts          How a page reads the app's own API.
-│   │   ├── labels.ts             Turns codes into words: `growth_equity` into "Growth equity".
+│   │   ├── labels.ts             Turns codes into words: `venture_capital` into "Venture capital".
 │   │   ├── chart.ts              The chart's point type, and the sentence read out in its place.
 │   │   └── api.ts                The shared responses: cache header, 404, 502.
 │   └── test/                     The API contract, the components, and the vendor failing.
@@ -181,6 +181,7 @@ The fund grows at a steady 8–11% a quarter. The naive column swings between �
 - **The sparkline is hand-written SVG, not a chart library.** Recharts requires `'use client'`, which would turn the fund card and every number on it into client JavaScript. Recharts earns its place on the detail pages, where there are axes, tooltips and two series.
 - **The company table stays a table at every width.** Cards would break the column alignment that "which company is dragging the fund down" depends on, and would mean a second markup tree rebuilding `<caption>` and `<th scope>` without offering navigation by column. I paid the narrow-screen cost with a sticky first column and a focusable scroll region.
 - **One chart component serves both drill-downs.** It takes `{ quarter, revenue, ebitda }`, which a fund point and a company point both satisfy, so the Recharts markup and its text equivalent exist once.
+- **A control is named by what it shows, not by a nicer sentence.** The rail's buttons used to carry `aria-label="Which companies reported in 2024-Q3"`, which reads better and quietly hides the `4/5` a sighted user can see. Anyone driving the page by voice would then be saying words that aren't on screen. The visible text is the name now, with "companies reported" appended for a screen reader, and Radix's `aria-haspopup` is what says a panel opens.
 - **The coverage rail opens on hover, focus and tap.** Naming the companies behind a quarter is the point of R4, so it's content and not decoration, and content behind a hover doesn't exist for a keyboard or a phone. The cost is that the rail is a client component, though the overview page stays entirely server-rendered.
 - **The upstream is untrusted input.** Zod at the boundary and `AbortSignal.timeout()` on every call, so a schema break is a handled `502` and not an `undefined.map()` five layers deeper.
 - **Errors say only what the reader can act on.** The vendor's URL, status and stack trace go to the server log. The 404 doesn't echo back the id it was asked for, and `error.tsx` never renders `error.message`. It prints Next's `digest`, an opaque id that matches a screenshot to a log line.

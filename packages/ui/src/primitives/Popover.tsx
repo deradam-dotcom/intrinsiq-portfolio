@@ -6,18 +6,15 @@ import styles from './Popover.module.css'
 
 type PopoverProps = {
   trigger: ReactNode
-  label: string
   children: ReactNode
   open: boolean
   onOpenChange: (open: boolean) => void
   className?: string
 }
 
-const Popover = ({ trigger, label, children, open, onOpenChange, className }: PopoverProps) => (
+const Popover = ({ trigger, children, open, onOpenChange, className }: PopoverProps) => (
   <RadixPopover.Root onOpenChange={onOpenChange} open={open}>
-    <RadixPopover.Trigger aria-label={label} className={className}>
-      {trigger}
-    </RadixPopover.Trigger>
+    <RadixPopover.Trigger className={className}>{trigger}</RadixPopover.Trigger>
     <RadixPopover.Portal>
       <RadixPopover.Content
         className={styles.content}

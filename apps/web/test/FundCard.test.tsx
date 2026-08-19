@@ -56,7 +56,7 @@ describe('a fund card', () => {
   it('names the fund in a heading that drills into it', () => {
     renderCard(fund)
 
-    expect(screen.getByRole('heading', { level: 2, name: 'Acme Growth Fund III' })).toBeDefined()
+    expect(screen.getByRole('heading', { level: 3, name: 'Acme Growth Fund III' })).toBeDefined()
     expect(screen.getByRole('link', { name: 'Acme Growth Fund III' }).getAttribute('href')).toBe(
       '/funds/fund-003',
     )
