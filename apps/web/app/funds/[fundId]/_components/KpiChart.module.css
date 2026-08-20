@@ -45,14 +45,6 @@
   stroke: var(--color-border-strong);
 }
 
-.revenue {
-  color: var(--color-accent);
-}
-
-.ebitda {
-  color: var(--color-text-muted);
-}
-
 .legend {
   display: flex;
   justify-content: center;
